@@ -42,7 +42,22 @@ namespace RobbieWagnerGames.FirstPerson
         public delegate void ToggleDelegate(bool on);
         public event ToggleDelegate OnToggleMovement;
 
-        public bool isMoving = false;
+        private bool isMoving = false;
+        public bool IsMoving
+        {
+            get 
+            {
+                return isMoving;
+            }    
+            set 
+            {
+                if (isMoving == value)
+                    return;
+                isMoving = value;
+                // Add an event to trigger if needed
+            }
+        }
+
         [SerializeField] private float initialSpeed = 5f;
         private float currentSpeed;
         private Vector3 inputVector = Vector3.zero;

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class Anthill : MonoBehaviour
 {
-    [SerializeField] private float scorePerAnt = 100f;
-    [SerializeField] private float antSpawnCooldown = 0.5f;
+    [SerializeField] private int scorePerAnt = 10;
+    [SerializeField] private float antSpawnCooldown = 1f;
 
     private bool playerInRange = false;
     private bool isCoroutineRunning = false;
@@ -34,7 +34,7 @@ public class Anthill : MonoBehaviour
         isCoroutineRunning = true;
         while (playerInRange)
         {
-            GameManager.Instance.currentScore += scorePerAnt;
+            GameManager.Instance.CurrentScore += scorePerAnt;
             yield return new WaitForSeconds(antSpawnCooldown);
         }
         isCoroutineRunning = false;

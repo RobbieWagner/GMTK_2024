@@ -8,14 +8,35 @@ namespace GMTK2024
 {
     public class GameManager : MonoBehaviour
     {
+        [Header("AI Chasers")]
         [SerializeField] private AIStalker stalkerPrefab;
-        [SerializeField] private GameObject anthillPrefab;
         [SerializeField] private List<Vector3> chaserSpawnLocations;
+
+        [Header("Points")]
         [SerializeField] private List<Vector3> anthillSpawnLocations;
+        [SerializeField] private Anthill anthillPrefab;
+        [SerializeField] private Transform anthillParent;
 
+        private int currentScore = 0;
+        public int CurrentScore
+        {
+            get 
+            {
+                return currentScore;
+            }
+            set 
+            {
+                if(currentScore == value || value < 0 || value > 99999999)
+                    return;
+                currentScore = value;
+                OnScoreChange?.Invoke(currentScore);
+            }
+        }
+        public delegate void ScoreDelegate(int score);
+        public event ScoreDelegate OnScoreChange;
+
+        [Header("Player")]
         [SerializeField] private List<AITarget> player;
-
-        public float currentScore = 0f;
 
         public static GameManager Instance { get; private set; }
         private void Awake()
@@ -60,10 +81,11 @@ namespace GMTK2024
 
         private void TriggerDay()
         {
-            //Place new anthills
+            // Place new anthills
+            // Clear Anthills here (foreach Destroy(anthill))?
             foreach (Vector3 spawnLocation in anthillSpawnLocations)
             {
-                GameObject anthill = Instantiate(anthillPrefab);
+                Anthill anthill = Instantiate(anthillPrefab, anthillParent);
                 anthill.transform.position = spawnLocation;
             }
         }

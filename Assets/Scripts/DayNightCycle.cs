@@ -14,8 +14,27 @@ public enum Daytime
 
 public class DayNightCycle : MonoBehaviour
 {
-    private Vector3 rotation = Vector3.zero;
-    [SerializeField] private Vector3 totalRotation = Vector3.zero;
+    [SerializeField] private float initialDaytimeValue = 30;
+    [HideInInspector] public Vector3 totalRotation;
+    private float daytimeValue = 0;
+    public float DaytimeValue
+    {
+        get 
+        {
+            return daytimeValue;
+        }
+        set 
+        {
+            if(daytimeValue == value)
+                return;
+            daytimeValue = value;
+            //Debug.Log($"{daytimeValue}");
+            OnUpdateDaytimeValue?.Invoke(daytimeValue);
+        }
+    }
+    public delegate void DaytimeValueDelegate(float time);
+    public event DaytimeValueDelegate OnUpdateDaytimeValue;
+
     private Daytime daytime = Daytime.NONE;
     public Daytime Daytime 
     { 
@@ -65,6 +84,8 @@ public class DayNightCycle : MonoBehaviour
             Instance = this;
         }
 
+        DaytimeValue = initialDaytimeValue;
+        totalRotation = new Vector3(initialDaytimeValue, 0, 0);
         transform.rotation = Quaternion.Euler(totalRotation);
 
         sunlight = transform.Find("Sunlight");
@@ -122,38 +143,33 @@ public class DayNightCycle : MonoBehaviour
 
     void DawnUpdate()
     {
-        float degrees_per_second = DawnDegrees / DawnSeconds;
-        rotation.x = degrees_per_second * Time.deltaTime;
-        sunlight.Rotate(rotation, Space.World);
-        moonlight.Rotate(-rotation, Space.World);
-        totalRotation.x += rotation.x;
+        UpdateDayTimeCycle(DawnDegrees / DawnSeconds);
     }
 
     void DayUpdate()
     {
-        float degrees_per_second = DayTimeDegrees / DayTimeSeconds;
-        rotation.x = degrees_per_second * Time.deltaTime;
-        sunlight.Rotate(rotation, Space.World);
-        moonlight.Rotate(-rotation, Space.World);
-        totalRotation.x += rotation.x;
+        UpdateDayTimeCycle(DayTimeDegrees / DayTimeSeconds);
     }
 
     void DuskUpdate()
     {
-        float degrees_per_second = DuskDegrees / DuskSeconds;
-        rotation.x = degrees_per_second * Time.deltaTime;
-        sunlight.Rotate(rotation, Space.World);
-        moonlight.Rotate(-rotation, Space.World);
-        totalRotation.x += rotation.x;
+        UpdateDayTimeCycle(DuskDegrees / DuskSeconds);
     }
 
     void NightUpdate()
     {
-        float degrees_per_second = NightDegrees / NightSeconds;
-        rotation.x = degrees_per_second * Time.deltaTime;
-        sunlight.Rotate(rotation, Space.World);
-        moonlight.Rotate(-rotation, Space.World);
-        totalRotation.x += rotation.x;
+        UpdateDayTimeCycle(NightDegrees / NightSeconds);
+    }
+
+    private void UpdateDayTimeCycle(float rotationSpeed)
+    {
+        float delta = rotationSpeed * Time.deltaTime;
+        DaytimeValue += delta;
+
+        Vector3 rotationVector = delta * Vector3.right;
+        sunlight.Rotate(rotationVector, Space.World);
+        moonlight.Rotate(-rotationVector, Space.World);
+        totalRotation.x += rotationVector.x;
     }
 
     public delegate void DaytimeDelegate(Daytime daytime);

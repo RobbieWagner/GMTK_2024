@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4711281fb27f444aaee9b29e8bc768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialRotation: 30
   totalRotation: {x: 0, y: 0, z: 0}
   DawnSeconds: 10
   DawnDegrees: 30
