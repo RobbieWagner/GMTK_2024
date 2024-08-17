@@ -73,7 +73,7 @@ namespace RobbieWagnerGames.AI
 
         public bool ChaseNearestTarget()
         {
-            Debug.Log("Chase Nearest Target.");
+            //Debug.Log("Chase Nearest Target.");
             AITarget closestTarget = null;
             float closestDistance = float.MaxValue;
 
@@ -150,8 +150,10 @@ namespace RobbieWagnerGames.AI
         {
             SetDestination(chasingTarget.transform.position);
 
-            if (agent.destination == null || chasingTarget == null ||  AIManager.GetPathLength(agent.path) < .05f)
+            if (agent.destination == null || chasingTarget == null || Vector3.Distance(transform.position, chasingTarget.transform.position) < 0.01f) //AIManager.GetPathLength(agent.path) < .05f)
+            {
                 OnReachTarget(chasingTarget);
+            }
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
@@ -213,7 +215,7 @@ namespace RobbieWagnerGames.AI
         #endregion
 
         #region AITarget Chasing
-        public virtual void SetTargets(List<AITarget> targets, bool removeOldTargets = false, bool chaseNearestTarget = true)
+        public virtual void SetTargets(List<AITarget> targets, bool removeOldTargets = false, bool chaseNearestTarget = false)
         {
             if(removeOldTargets)
                 currentTargets.Clear();
