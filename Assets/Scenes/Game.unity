@@ -3336,6 +3336,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayNightLights
       objectReference: {fileID: 0}
+    - target: {fileID: 7303257161051506210, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303257161051506210, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303257161051506210, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303257161051506210, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303257161051506210, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303257161051506210, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603400334485089793, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

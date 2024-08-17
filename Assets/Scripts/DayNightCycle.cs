@@ -168,7 +168,7 @@ public class DayNightCycle : MonoBehaviour
 
         Vector3 rotationVector = delta * Vector3.right;
         sunlight.Rotate(rotationVector, Space.World);
-        moonlight.Rotate(-rotationVector, Space.World);
+        moonlight.Rotate(rotationVector, Space.World);
         totalRotation.x += rotationVector.x;
     }
 
