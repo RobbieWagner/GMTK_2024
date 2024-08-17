@@ -15,21 +15,58 @@ public enum Daytime
 public class DayNightCycle : MonoBehaviour
 {
     private Vector3 rotation = Vector3.zero;
-    private Vector3 totalRotation = Vector3.zero;
-    public Daytime daytime;
+    [SerializeField] private Vector3 totalRotation = Vector3.zero;
+    private Daytime daytime = Daytime.NONE;
+    public Daytime Daytime 
+    { 
+        get 
+        { 
+            return daytime; 
+        } 
+        set 
+        {
+            if(daytime == value)
+                return;
+            daytime = value;
+            //Debug.Log($"{daytime}");
+            OnDayCycleChange?.Invoke(daytime);
+        }
+    }
 
+    [Header("Dawn")]
     [SerializeField] private float DawnSeconds = 10f;
     [SerializeField] private float DawnDegrees = 30f;
 
+    [Header("Day")]
     [SerializeField] private float DayTimeSeconds = 60f;
     [SerializeField] private float DayTimeDegrees = 150f;
 
+    [Header("Dusk")]
     [SerializeField] private float DuskSeconds = 20f;
     [SerializeField] private float DuskDegrees = 30f;
 
+    [Header("Night")]
     [SerializeField] private float NightSeconds = 120f;
     [SerializeField] private float NightDegrees = 150f;
-    void Update()
+
+
+    public static DayNightCycle Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+        transform.rotation = Quaternion.Euler(totalRotation);
+    }
+
+    private void Update()
     {
         switch (daytime)
         {
@@ -53,24 +90,23 @@ public class DayNightCycle : MonoBehaviour
         // when set, do OnDayCycleChange?.Invoke(daytime);
     }
 
-    void CheckTime()
+    private void CheckTime()
     {
         if (daytime != Daytime.DAWN && totalRotation.x < DawnDegrees)
         {
-            daytime = Daytime.DAWN;
-            OnDayCycleChange?.Invoke(daytime);
-        } else if (daytime != Daytime.DAY && totalRotation.x >= DawnDegrees && totalRotation.x < DawnDegrees + DayTimeDegrees)
+            Daytime = Daytime.DAWN;
+        } 
+        else if (daytime != Daytime.DAY && totalRotation.x >= DawnDegrees && totalRotation.x < DawnDegrees + DayTimeDegrees)
         {
-            daytime = Daytime.DAY;
-            OnDayCycleChange?.Invoke(daytime);
-        } else if (daytime != Daytime.DUSK && totalRotation.x >= DawnDegrees + DayTimeDegrees && totalRotation.x < DawnDegrees + DayTimeDegrees + DuskDegrees)
+            Daytime = Daytime.DAY;
+        } 
+        else if (daytime != Daytime.DUSK && totalRotation.x >= DawnDegrees + DayTimeDegrees && totalRotation.x < DawnDegrees + DayTimeDegrees + DuskDegrees)
         {
-            daytime = Daytime.DUSK;
-            OnDayCycleChange?.Invoke(daytime);
-        } else if (daytime != Daytime.NIGHT && totalRotation.x >= DawnDegrees + DayTimeDegrees + DuskDegrees)
+            Daytime = Daytime.DUSK;
+        } 
+        else if (daytime != Daytime.NIGHT && totalRotation.x >= DawnDegrees + DayTimeDegrees + DuskDegrees)
         {
-            daytime = Daytime.NIGHT;
-            OnDayCycleChange?.Invoke(daytime);
+            Daytime = Daytime.NIGHT;
         }
 
         if (totalRotation.x > 360)

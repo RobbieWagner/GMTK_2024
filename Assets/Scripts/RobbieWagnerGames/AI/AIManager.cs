@@ -45,6 +45,13 @@ namespace RobbieWagnerGames.AI
             Destroy(agent);
         }
 
+        public void DestroyAllAgents()
+        {
+            foreach (AIAgent agent in activeAgents)
+                Destroy(agent.gameObject);
+            activeAgents.Clear();
+        }
+
         public static float GetPathLength(NavMeshPath path)
         {
             float length = 0.0f;

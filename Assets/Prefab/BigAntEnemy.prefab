@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3237137915801224218}
   - component: {fileID: -6806583633223388201}
   m_Layer: 0
-  m_Name: PlaceholderAI
+  m_Name: BigAntEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
