@@ -49,6 +49,8 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private float NightSeconds = 120f;
     [SerializeField] private float NightDegrees = 150f;
 
+    private Transform sunlight;
+    private Transform moonlight;
 
     public static DayNightCycle Instance { get; private set; }
 
@@ -64,6 +66,9 @@ public class DayNightCycle : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Euler(totalRotation);
+
+        sunlight = transform.Find("Sunlight");
+        moonlight = transform.Find("Moonlight");
     }
 
     private void Update()
@@ -119,7 +124,8 @@ public class DayNightCycle : MonoBehaviour
     {
         float degrees_per_second = DawnDegrees / DawnSeconds;
         rotation.x = degrees_per_second * Time.deltaTime;
-        transform.Rotate(rotation, Space.World);
+        sunlight.Rotate(rotation, Space.World);
+        moonlight.Rotate(-rotation, Space.World);
         totalRotation.x += rotation.x;
     }
 
@@ -127,7 +133,8 @@ public class DayNightCycle : MonoBehaviour
     {
         float degrees_per_second = DayTimeDegrees / DayTimeSeconds;
         rotation.x = degrees_per_second * Time.deltaTime;
-        transform.Rotate(rotation, Space.World);
+        sunlight.Rotate(rotation, Space.World);
+        moonlight.Rotate(-rotation, Space.World);
         totalRotation.x += rotation.x;
     }
 
@@ -135,7 +142,8 @@ public class DayNightCycle : MonoBehaviour
     {
         float degrees_per_second = DuskDegrees / DuskSeconds;
         rotation.x = degrees_per_second * Time.deltaTime;
-        transform.Rotate(rotation, Space.World);
+        sunlight.Rotate(rotation, Space.World);
+        moonlight.Rotate(-rotation, Space.World);
         totalRotation.x += rotation.x;
     }
 
@@ -143,7 +151,8 @@ public class DayNightCycle : MonoBehaviour
     {
         float degrees_per_second = NightDegrees / NightSeconds;
         rotation.x = degrees_per_second * Time.deltaTime;
-        transform.Rotate(rotation, Space.World);
+        sunlight.Rotate(rotation, Space.World);
+        moonlight.Rotate(-rotation, Space.World);
         totalRotation.x += rotation.x;
     }
 

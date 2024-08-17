@@ -9,9 +9,13 @@ namespace GMTK2024
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private AIStalker stalkerPrefab;
+        [SerializeField] private GameObject anthillPrefab;
         [SerializeField] private List<Vector3> chaserSpawnLocations;
+        [SerializeField] private List<Vector3> anthillSpawnLocations;
 
         [SerializeField] private List<AITarget> player;
+
+        public float currentScore = 0f;
 
         public static GameManager Instance { get; private set; }
         private void Awake()
@@ -57,6 +61,11 @@ namespace GMTK2024
         private void TriggerDay()
         {
             //Place new anthills
+            foreach (Vector3 spawnLocation in anthillSpawnLocations)
+            {
+                GameObject anthill = Instantiate(anthillPrefab);
+                anthill.transform.position = spawnLocation;
+            }
         }
 
         private void TriggerDusk()
