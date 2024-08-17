@@ -20,6 +20,8 @@ namespace RobbieWagnerGames.UI
         [SerializeField] protected Color inactiveColor;
         [SerializeField] protected Color activeColor;
 
+        [SerializeField] private bool enabledByDefault = true;
+
         private UIControls uiControls;
 
         private int activeTab = -1;
@@ -53,6 +55,9 @@ namespace RobbieWagnerGames.UI
             base.Awake();
             uiControls = new UIControls();
             uiControls.UI.NavigateTab.performed += NavigateTab;
+
+            thisCanvas.enabled = enabledByDefault;
+
         }
 
         protected override void OnEnable()
@@ -88,6 +93,11 @@ namespace RobbieWagnerGames.UI
             {
                 ActiveTab--;
             }
+        }
+
+        public virtual void SetActiveTab(int tab)
+        {
+            ActiveTab = tab;
         }
 
         public virtual void EnableTab(int tab)

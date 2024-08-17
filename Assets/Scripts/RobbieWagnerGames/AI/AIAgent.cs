@@ -26,7 +26,7 @@ namespace RobbieWagnerGames.AI
     {
         public NavMeshAgent agent;
 
-        [SerializeField] protected float idleWaitTime = 3f;
+        public float idleWaitTime = 3f;
         protected float currentWaitTime;
 
         [SerializeField] protected float movementRange = 100f;
