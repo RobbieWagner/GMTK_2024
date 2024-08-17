@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GMTK2024;
+using RobbieWagnerGames.FirstPerson;
 using UnityEngine;
 
 public class Anthill : MonoBehaviour
@@ -9,34 +10,31 @@ public class Anthill : MonoBehaviour
     [SerializeField] private int scorePerAnt = 10;
     [SerializeField] private float antSpawnCooldown = 1f;
 
+    private float timer = 0f;
+    
     private bool playerInRange = false;
     private bool isCoroutineRunning = false;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !isCoroutineRunning)
-        {
-            playerInRange = true;
-            StartCoroutine(GiveScore());
-        }
-    }
+    private SimpleFirstPersonPlayerMovement playerMovement;
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
+            playerMovement = other.GetComponent<SimpleFirstPersonPlayerMovement>();
         }
     }
 
-    IEnumerator GiveScore()
+    private void OnTriggerStay(Collider other)
     {
-        isCoroutineRunning = true;
-        while (playerInRange)
+        if (other.CompareTag("Player") && playerMovement.IsMoving)
         {
-            GameManager.Instance.CurrentScore += scorePerAnt;
-            yield return new WaitForSeconds(antSpawnCooldown);
+            timer += Time.deltaTime;
+            if (timer > antSpawnCooldown)
+            {
+                GameManager.Instance.CurrentScore += scorePerAnt;
+                timer = 0f;
+            }
         }
-        isCoroutineRunning = false;
     }
 }
