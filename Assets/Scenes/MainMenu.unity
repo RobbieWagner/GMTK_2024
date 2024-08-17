@@ -210,7 +210,7 @@ MonoBehaviour:
   controlsButton: {fileID: 0}
   creditsButton: {fileID: 0}
   quitButton: {fileID: 1149639785}
-  sceneToGoTo: MVP
+  sceneToGoTo: Game
   settings: {fileID: 1834739515}
   controls: {fileID: 0}
   credits: {fileID: 0}

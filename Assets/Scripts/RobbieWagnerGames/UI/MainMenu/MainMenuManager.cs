@@ -31,10 +31,10 @@ namespace RobbieWagnerGames.UI
         protected override void OnEnable()
         {
             startButton.onClick.AddListener(StartGame);
-            settingsButton.onClick.AddListener(OpenSettings);
+            settingsButton?.onClick.AddListener(OpenSettings);
             //controlsButton.onClick.AddListener(OpenControls);
             //creditsButton.onClick.AddListener(OpenCredits);
-            quitButton.onClick.AddListener(QuitGame);
+            quitButton?.onClick.AddListener(QuitGame);
 
             base.OnEnable();
         }
@@ -44,10 +44,10 @@ namespace RobbieWagnerGames.UI
             base.OnDisable();
 
             startButton.onClick.RemoveListener(StartGame);
-            settingsButton.onClick.RemoveListener(OpenSettings);
+            settingsButton?.onClick.RemoveListener(OpenSettings);
             //controlsButton.onClick.RemoveListener(OpenControls);
             //creditsButton.onClick.RemoveListener(OpenCredits);
-            quitButton.onClick.RemoveListener(QuitGame);
+            quitButton?.onClick.RemoveListener(QuitGame);
         }
 
         public void StartGame()
@@ -86,10 +86,12 @@ namespace RobbieWagnerGames.UI
             base.ToggleButtonInteractibility(toggleOn);
 
             startButton.interactable = toggleOn;
-            settingsButton.interactable = toggleOn;
+            if(settingsButton != null) 
+                settingsButton.interactable = toggleOn;
             //controlsButton.interactable = toggleOn;
             //creditsButton.interactable = toggleOn;
-            quitButton.interactable = toggleOn;
+            if (quitButton != null)
+                quitButton.interactable = toggleOn;
         }
 
         protected override IEnumerator SwapCanvases(Canvas active, Canvas next)

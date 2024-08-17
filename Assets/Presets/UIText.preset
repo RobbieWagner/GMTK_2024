@@ -88,8 +88,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: m_sharedMaterial
     value: 
-    objectReference: {fileID: 274891595012558647, guid: 622e6ef2aa699194384f7285e28ce95d,
-      type: 2}
+    objectReference: {fileID: 2100000, guid: 73e43f4f9b2f34947b3e55d7aca77145, type: 2}
   - target: {fileID: 0}
     propertyPath: m_fontSharedMaterials.Array.size
     value: 0
@@ -264,7 +263,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_characterSpacing
-    value: 0
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_wordSpacing
