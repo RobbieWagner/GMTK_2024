@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace RobbieWagnerGames.UI
@@ -59,6 +60,9 @@ namespace RobbieWagnerGames.UI
 
             nextMenu.enabled = true;
             nextMenu.ToggleButtonInteractibility(true);
+            Debug.Log($"{nextMenu.name} {activeMenu.name}");
+            if (nextMenu.lastCanvas == null) Debug.Log("hi");
+            if (activeMenu.thisCanvas == null) Debug.Log("hello");
             nextMenu.lastCanvas = activeMenu.thisCanvas;
             activeMenu.enabled = false;
         

@@ -59,7 +59,8 @@ namespace RobbieWagnerGames.UI
 
         private void OpenSettings()
         {
-            StartCoroutine(SwapCanvases(thisCanvas, settings));
+            thisCanvas.enabled = false;
+            settings.enabled = true;
         }
 
         private void OpenControls()
@@ -93,6 +94,7 @@ namespace RobbieWagnerGames.UI
 
         protected override IEnumerator SwapCanvases(Canvas active, Canvas next)
         {
+            
             yield return StartCoroutine(base.SwapCanvases(active, next));
 
             StopCoroutine(SwapCanvases(active, next));
