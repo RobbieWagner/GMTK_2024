@@ -82,7 +82,7 @@ namespace GMTK2024
         private void TriggerDay()
         {
             // Place new anthills
-            // Clear Anthills here (foreach Destroy(anthill))?
+            // Clear Anthills here (foreach Destroy(anthill))? , then place new ones in new locations
             foreach (Vector3 spawnLocation in anthillSpawnLocations)
             {
                 Anthill anthill = Instantiate(anthillPrefab, anthillParent);

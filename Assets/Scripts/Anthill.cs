@@ -5,6 +5,8 @@ using GMTK2024;
 using RobbieWagnerGames.FirstPerson;
 using UnityEngine;
 
+// TODO: Anthill only gives out certain amount of points before it is destroyed
+
 public class Anthill : MonoBehaviour
 {
     [SerializeField] private int scorePerAnt = 10;
