@@ -8,16 +8,16 @@ public class DayNightCycle : MonoBehaviour
 
     [SerializeField]
     private float degrees_per_second = 6;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         rotation.x = degrees_per_second * Time.deltaTime;
         transform.Rotate(rotation, Space.World);
+    }
+
+    public bool IsDayTime()
+    {
+        return rotation.x >= 0 && rotation.x < 180;
     }
 }
