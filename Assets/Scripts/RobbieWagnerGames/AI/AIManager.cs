@@ -21,7 +21,7 @@ namespace RobbieWagnerGames.AI
                 Instance = this;
         }
 
-        public void FreezeAI()
+        public void InitializeAI()
         {
             if(activeAgents.Any())
             {

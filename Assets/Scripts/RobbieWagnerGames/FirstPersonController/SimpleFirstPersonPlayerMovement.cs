@@ -111,7 +111,7 @@ namespace RobbieWagnerGames.FirstPerson
         private void UpdateGroundCheck()
         { 
             RaycastHit hit;
-            isGrounded = Physics.Raycast(transform.position + new Vector3(0, .01f, 0), Vector3.down, out hit, .1f, groundMask);
+            isGrounded = Physics.Raycast(transform.position + new Vector3(0, .01f, 0), Vector3.down, out hit, 1.5f, groundMask);
 
             if (hit.collider != null)
             {

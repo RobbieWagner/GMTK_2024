@@ -69,6 +69,11 @@ namespace RobbieWagnerGames.FirstPerson
             inputActions.Movement.ControllerLook.canceled += StopRotating;
         }
 
+        private void OnDestroy()
+        {
+            inputActions.Disable();
+        }
+
         private void Update()
         {
             if (usingController)
