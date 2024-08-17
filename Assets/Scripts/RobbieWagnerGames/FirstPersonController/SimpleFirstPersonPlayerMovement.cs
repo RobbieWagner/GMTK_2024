@@ -67,7 +67,7 @@ namespace RobbieWagnerGames.FirstPerson
             }
             set
             {
-                if (isRunning == value)
+                if (isRunning == value || (value && CurStamina < maxStamina/5))
                     return;
                 isRunning = value;
                 ToggleRun?.Invoke(isRunning);
@@ -87,9 +87,11 @@ namespace RobbieWagnerGames.FirstPerson
             }
             set 
             {
-                if(value == curStamina || curStamina < 0)
+                if(value == curStamina)
                     return;
-                
+
+                Debug.Log(CurStamina);
+
                 curStamina = value;
                 if(curStamina < 0)
                     curStamina = 0;
@@ -134,6 +136,7 @@ namespace RobbieWagnerGames.FirstPerson
             }
 
             SetupControls();
+            CurStamina = maxStamina;
         }
 
         private void SetupControls()
@@ -183,11 +186,15 @@ namespace RobbieWagnerGames.FirstPerson
         private void UpdateStamina()
         {
             if(IsRunning)
-            {
+            { 
                 CurStamina -= Time.deltaTime;
                 if(CurStamina <= 0)
                     IsRunning = false;
             }    
+            else
+            {
+                CurStamina += Time.deltaTime / 2;
+            }
         }
 
         private void UpdateGroundCheck()

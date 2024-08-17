@@ -29,6 +29,7 @@ public class GameUI : MonoBehaviour
     [Header("Stamina")]
     [SerializeField] private Slider staminaSlider;
     [SerializeField] private Image staminaSliderImage;
+    [SerializeField] private Image staminaFillImage;
     [SerializeField] private Color normalStaminaColor;
     [SerializeField] private Color badStaminaColor;
 
@@ -57,18 +58,26 @@ public class GameUI : MonoBehaviour
         staminaSlider.maxValue = SimpleFirstPersonPlayerMovement.Instance.maxStamina;
         staminaSlider.value = SimpleFirstPersonPlayerMovement.Instance.CurStamina;
         SimpleFirstPersonPlayerMovement.Instance.OnStaminaChanged += UpdateStaminaSlider;
-        SimpleFirstPersonPlayerMovement.Instance.ToggleRun += ToggleStaminaSlider;
-        staminaSlider.enabled = false;
+        staminaFillImage.color = normalStaminaColor;
     }
 
-    private void ToggleStaminaSlider(bool on)
+    private void Update()
     {
-        staminaSlider.enabled = on;
+        if(staminaSlider.value == staminaSlider.maxValue)
+            staminaSlider.gameObject.SetActive(false);
+        else
+            staminaSlider.gameObject.SetActive(true);
     }
 
     private void UpdateStaminaSlider(float floatVal)
     {
         staminaSlider.value = floatVal;
+
+        if (floatVal < staminaSlider.maxValue / 5)
+            staminaFillImage.color = badStaminaColor;
+        else
+            staminaFillImage.color = normalStaminaColor;
+
         if (floatVal <= 0)
             StartCoroutine(FlashImageColor(staminaSliderImage, Color.white));
     }
