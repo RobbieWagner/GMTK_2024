@@ -1,3 +1,4 @@
+using RobbieWagnerGames.Minijam164;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +16,8 @@ namespace RobbieWagnerGames.AI
 
         public virtual IEnumerator Die()
         {
-            yield return new WaitForSeconds(2f);
-            SceneManager.LoadScene("FPS");
+            yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn(2));
+            SceneManager.LoadScene("DeathScene");
         }
     }
 }

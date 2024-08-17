@@ -18,6 +18,7 @@ namespace RobbieWagnerGames.UI
         [SerializeField] private Button settingsButton;
         [SerializeField] private Button controlsButton;
         [SerializeField] private Button saveButton;
+        [SerializeField] private Button mainMenuButton;
         [SerializeField] private Button quitButton;
 
         [SerializeField] private Canvas settings;
@@ -44,29 +45,30 @@ namespace RobbieWagnerGames.UI
         } 
 
         protected override void OnEnable()
-        {
-                base.OnEnable();
+    {
+            base.OnEnable();
 
-                paused = true;
-                Time.timeScale = 0;
+            paused = true;
+            Time.timeScale = 0;
 
-                foreach(string actionMapName in actionMapsToDisable)
+            foreach(string actionMapName in actionMapsToDisable)
+            {
+                if(!string.IsNullOrEmpty(actionMapName))
                 {
-                    if(!string.IsNullOrEmpty(actionMapName))
-                    {
-                        playerInput.actions.FindActionMap(actionMapName).Disable();
-                    } 
-                }
+                    playerInput.actions.FindActionMap(actionMapName).Disable();
+                } 
+            }
 
-                resumeButton.onClick.AddListener(ResumeGame);
-                settingsButton.onClick.AddListener(OpenSettings);
-                controlsButton.onClick.AddListener(OpenControls);
-                saveButton.onClick.AddListener(SaveGame);
-                quitButton.onClick.AddListener(QuitToMainMenu);
+            resumeButton.onClick.AddListener(ResumeGame);
+            settingsButton.onClick.AddListener(OpenSettings);
+            //controlsButton.onClick.AddListener(OpenControls);
+            //saveButton.onClick.AddListener(SaveGame);
+            mainMenuButton.onClick.AddListener(QuitToMainMenu);
+            quitButton.onClick.AddListener(QuitToDesktop);
 
-                thisCanvas.enabled = true;
+            thisCanvas.enabled = true;
 
-                OnGamePaused();
+            OnGamePaused?.Invoke();
         }
 
         public delegate void OnGamePausedDelegate();
@@ -87,14 +89,15 @@ namespace RobbieWagnerGames.UI
                     } 
                 }
 
-                OnGameUnpaused();
+                OnGameUnpaused?.Invoke();
             }
 
             resumeButton.onClick.RemoveListener(ResumeGame);
             settingsButton.onClick.RemoveListener(OpenSettings);
-            controlsButton.onClick.RemoveListener(OpenControls);
-            saveButton.onClick.RemoveListener(SaveGame);
-            quitButton.onClick.RemoveListener(QuitToMainMenu);
+            //controlsButton.onClick.RemoveListener(OpenControls);
+            //saveButton.onClick.RemoveListener(SaveGame);
+            mainMenuButton.onClick.RemoveListener(QuitToMainMenu);
+            quitButton.onClick.RemoveListener(QuitToDesktop);
 
             thisCanvas.enabled = false;
         }
@@ -135,14 +138,20 @@ namespace RobbieWagnerGames.UI
             StartCoroutine(QuitToMainMenuCo());
         }
 
+        private void QuitToDesktop()
+        {
+            Application.Quit();
+        }
+
         protected override void ToggleButtonInteractibility(bool toggleOn)
         {
             base.ToggleButtonInteractibility(toggleOn);
 
             resumeButton.interactable = toggleOn;
             settingsButton.interactable = toggleOn;
-            controlsButton.interactable = toggleOn;
-            saveButton.interactable = toggleOn;
+            //controlsButton.interactable = toggleOn;
+            //saveButton.interactable = toggleOn;
+            mainMenuButton.interactable = toggleOn;
             quitButton.interactable = toggleOn;
         }
 

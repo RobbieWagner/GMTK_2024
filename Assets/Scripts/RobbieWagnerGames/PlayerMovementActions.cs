@@ -53,6 +53,15 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Flashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""7251cfa0-05dd-46d3-88b6-19d8c7d4a250"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -196,6 +205,28 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ControllerLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4840f796-813a-4b15-ba10-aa38a9660832"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87b72436-b685-4650-a07e-c5291c2608f6"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -362,6 +393,7 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         m_Movement_MouseLook = m_Movement.FindAction("MouseLook", throwIfNotFound: true);
         m_Movement_ControllerLook = m_Movement.FindAction("ControllerLook", throwIfNotFound: true);
+        m_Movement_Flashlight = m_Movement.FindAction("Flashlight", throwIfNotFound: true);
         // UINav
         m_UINav = asset.FindActionMap("UINav", throwIfNotFound: true);
         m_UINav_NavigateMenuHorizontally = m_UINav.FindAction("NavigateMenuHorizontally", throwIfNotFound: true);
@@ -433,6 +465,7 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
     private readonly InputAction m_Movement_Move;
     private readonly InputAction m_Movement_MouseLook;
     private readonly InputAction m_Movement_ControllerLook;
+    private readonly InputAction m_Movement_Flashlight;
     public struct MovementActions
     {
         private @PlayerMovementActions m_Wrapper;
@@ -440,6 +473,7 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
         public InputAction @Move => m_Wrapper.m_Movement_Move;
         public InputAction @MouseLook => m_Wrapper.m_Movement_MouseLook;
         public InputAction @ControllerLook => m_Wrapper.m_Movement_ControllerLook;
+        public InputAction @Flashlight => m_Wrapper.m_Movement_Flashlight;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -458,6 +492,9 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
             @ControllerLook.started += instance.OnControllerLook;
             @ControllerLook.performed += instance.OnControllerLook;
             @ControllerLook.canceled += instance.OnControllerLook;
+            @Flashlight.started += instance.OnFlashlight;
+            @Flashlight.performed += instance.OnFlashlight;
+            @Flashlight.canceled += instance.OnFlashlight;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -471,6 +508,9 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
             @ControllerLook.started -= instance.OnControllerLook;
             @ControllerLook.performed -= instance.OnControllerLook;
             @ControllerLook.canceled -= instance.OnControllerLook;
+            @Flashlight.started -= instance.OnFlashlight;
+            @Flashlight.performed -= instance.OnFlashlight;
+            @Flashlight.canceled -= instance.OnFlashlight;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -593,6 +633,7 @@ public partial class @PlayerMovementActions: IInputActionCollection2, IDisposabl
         void OnMove(InputAction.CallbackContext context);
         void OnMouseLook(InputAction.CallbackContext context);
         void OnControllerLook(InputAction.CallbackContext context);
+        void OnFlashlight(InputAction.CallbackContext context);
     }
     public interface IUINavActions
     {

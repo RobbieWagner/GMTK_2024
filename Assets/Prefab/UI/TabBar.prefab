@@ -400,8 +400,7 @@ MonoBehaviour:
   m_text: Sound
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 622e6ef2aa699194384f7285e28ce95d, type: 2}
-  m_sharedMaterial: {fileID: 274891595012558647, guid: 622e6ef2aa699194384f7285e28ce95d,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 73e43f4f9b2f34947b3e55d7aca77145, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -801,8 +800,7 @@ MonoBehaviour:
   m_text: Credits
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 622e6ef2aa699194384f7285e28ce95d, type: 2}
-  m_sharedMaterial: {fileID: 274891595012558647, guid: 622e6ef2aa699194384f7285e28ce95d,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 73e43f4f9b2f34947b3e55d7aca77145, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

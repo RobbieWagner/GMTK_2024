@@ -60,9 +60,6 @@ namespace RobbieWagnerGames.UI
 
             nextMenu.enabled = true;
             nextMenu.ToggleButtonInteractibility(true);
-            Debug.Log($"{nextMenu.name} {activeMenu.name}");
-            if (nextMenu.lastCanvas == null) Debug.Log("hi");
-            if (activeMenu.thisCanvas == null) Debug.Log("hello");
             nextMenu.lastCanvas = activeMenu.thisCanvas;
             activeMenu.enabled = false;
         

@@ -44,6 +44,15 @@ public partial class @UIControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PauseGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""77e5fea3-151e-47cd-b33d-c46b1ef91539"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,28 @@ public partial class @UIControls: IInputActionCollection2, IDisposable
                     ""action"": ""NavigateOption"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c808b62d-7157-406b-9d7b-e4c0da738c77"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a14afbc-615c-4be1-81ac-a2e58eac2796"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PauseGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +153,7 @@ public partial class @UIControls: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_NavigateTab = m_UI.FindAction("NavigateTab", throwIfNotFound: true);
         m_UI_NavigateOption = m_UI.FindAction("NavigateOption", throwIfNotFound: true);
+        m_UI_PauseGame = m_UI.FindAction("PauseGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -185,12 +217,14 @@ public partial class @UIControls: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_NavigateTab;
     private readonly InputAction m_UI_NavigateOption;
+    private readonly InputAction m_UI_PauseGame;
     public struct UIActions
     {
         private @UIControls m_Wrapper;
         public UIActions(@UIControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @NavigateTab => m_Wrapper.m_UI_NavigateTab;
         public InputAction @NavigateOption => m_Wrapper.m_UI_NavigateOption;
+        public InputAction @PauseGame => m_Wrapper.m_UI_PauseGame;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -206,6 +240,9 @@ public partial class @UIControls: IInputActionCollection2, IDisposable
             @NavigateOption.started += instance.OnNavigateOption;
             @NavigateOption.performed += instance.OnNavigateOption;
             @NavigateOption.canceled += instance.OnNavigateOption;
+            @PauseGame.started += instance.OnPauseGame;
+            @PauseGame.performed += instance.OnPauseGame;
+            @PauseGame.canceled += instance.OnPauseGame;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -216,6 +253,9 @@ public partial class @UIControls: IInputActionCollection2, IDisposable
             @NavigateOption.started -= instance.OnNavigateOption;
             @NavigateOption.performed -= instance.OnNavigateOption;
             @NavigateOption.canceled -= instance.OnNavigateOption;
+            @PauseGame.started -= instance.OnPauseGame;
+            @PauseGame.performed -= instance.OnPauseGame;
+            @PauseGame.canceled -= instance.OnPauseGame;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -237,5 +277,6 @@ public partial class @UIControls: IInputActionCollection2, IDisposable
     {
         void OnNavigateTab(InputAction.CallbackContext context);
         void OnNavigateOption(InputAction.CallbackContext context);
+        void OnPauseGame(InputAction.CallbackContext context);
     }
 }
