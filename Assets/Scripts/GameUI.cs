@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using GMTK2024;
+using RobbieWagnerGames.FirstPerson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +28,9 @@ public class GameUI : MonoBehaviour
 
     [Header("Stamina")]
     [SerializeField] private Slider staminaSlider;
+    [SerializeField] private Image staminaSliderImage;
+    [SerializeField] private Color normalStaminaColor;
+    [SerializeField] private Color badStaminaColor;
 
     public static GameUI Instance { get; private set; }
     private void Awake()
@@ -48,6 +52,25 @@ public class GameUI : MonoBehaviour
         dayCycleSlider.minValue = 0;
         dayCycleSlider.maxValue = 360;
         dayCycleSlider.value = DayNightCycle.Instance.DaytimeValue;
+
+        staminaSlider.minValue = 0;
+        staminaSlider.maxValue = SimpleFirstPersonPlayerMovement.Instance.maxStamina;
+        staminaSlider.value = SimpleFirstPersonPlayerMovement.Instance.CurStamina;
+        SimpleFirstPersonPlayerMovement.Instance.OnStaminaChanged += UpdateStaminaSlider;
+        SimpleFirstPersonPlayerMovement.Instance.ToggleRun += ToggleStaminaSlider;
+        staminaSlider.enabled = false;
+    }
+
+    private void ToggleStaminaSlider(bool on)
+    {
+        staminaSlider.enabled = on;
+    }
+
+    private void UpdateStaminaSlider(float floatVal)
+    {
+        staminaSlider.value = floatVal;
+        if (floatVal <= 0)
+            StartCoroutine(FlashImageColor(staminaSliderImage, Color.white));
     }
 
     private void DayCycleTransitionHandler(Daytime daytime)
@@ -67,7 +90,7 @@ public class GameUI : MonoBehaviour
     {
         StartCoroutine(FadeBarColor(daytime, transitionTime));
 
-        yield return daySliderImage.DOColor(Color.black, transitionTime/2).WaitForCompletion();
+        yield return daySliderImage.DOColor(Color.black, transitionTime / 2).WaitForCompletion();
         daySliderImage.sprite = daytimeSprites[daytime];
         yield return daySliderImage.DOColor(Color.white, transitionTime / 2).WaitForCompletion();
 
@@ -92,13 +115,23 @@ public class GameUI : MonoBehaviour
 
     private IEnumerator UpdateScoreTextCo()
     {
-        
-        while(displayedScore < GameManager.Instance.CurrentScore)
+
+        while (displayedScore < GameManager.Instance.CurrentScore)
         {
             displayedScore++;
             scoreText.text = displayedScore.ToString();
             yield return new WaitForSeconds(.05f);
         }
         scoreTextUpdateCo = null;
+    }
+
+    private IEnumerator FlashImageColor(Image image, Color flashColor, float flashTime = .5f, int flashes = 3)
+    {
+        Color initialColor = image.color;
+        for(int i = 0; i < flashes; i++)
+        {
+            yield return image.DOColor(flashColor, flashTime).WaitForCompletion();
+            yield return image.DOColor(initialColor, flashTime).WaitForCompletion();
+        }
     }
 }

@@ -58,8 +58,52 @@ namespace RobbieWagnerGames.FirstPerson
             }
         }
 
-        [SerializeField] private float initialSpeed = 5f;
-        private float currentSpeed;
+        private bool isRunning = false;
+        public bool IsRunning
+        {
+            get
+            {
+                return isRunning;
+            }
+            set
+            {
+                if (isRunning == value)
+                    return;
+                isRunning = value;
+                ToggleRun?.Invoke(isRunning);
+            }
+        }
+        public event BoolDelegate ToggleRun;
+
+        public delegate void BoolDelegate(bool on);
+
+        public float maxStamina = 30;
+        private float curStamina = -1;
+        public float CurStamina
+        {
+            get 
+            {
+                return curStamina;
+            }
+            set 
+            {
+                if(value == curStamina || curStamina < 0)
+                    return;
+                
+                curStamina = value;
+                if(curStamina < 0)
+                    curStamina = 0;
+
+                OnStaminaChanged?.Invoke(curStamina);
+            }
+        }
+        public event FloatDelegate OnStaminaChanged;
+
+        public delegate void FloatDelegate(float floatVal);
+
+        [SerializeField] private float defaultSpeed = 5f;
+        [SerializeField] private float runSpeed = 10f;
+        [SerializeField] private float slowSpeed = 2.5f;
         private Vector3 inputVector = Vector3.zero;
         private PlayerMovementActions inputActions;
 
@@ -89,8 +133,6 @@ namespace RobbieWagnerGames.FirstPerson
                 Instance = this;
             }
 
-            currentSpeed = initialSpeed;
-
             SetupControls();
         }
 
@@ -99,9 +141,21 @@ namespace RobbieWagnerGames.FirstPerson
             inputActions = new PlayerMovementActions();
             inputActions.Movement.Move.performed += OnMove;
             inputActions.Movement.Move.canceled += OnStop;
+            inputActions.Movement.Run.performed += StartRun;
+            inputActions.Movement.Run.canceled += StopRun;
             OnToggleMovement += ToggleMovement;
             if (CanMove)
                 inputActions.Movement.Enable();
+        }
+
+        private void StopRun(InputAction.CallbackContext context)
+        {
+            IsRunning = false;
+        }
+
+        private void StartRun(InputAction.CallbackContext context)
+        {
+            IsRunning = true;
         }
 
         private void ToggleMovement(bool on)
@@ -115,12 +169,25 @@ namespace RobbieWagnerGames.FirstPerson
         private void LateUpdate()
         {
             UpdateGroundCheck();
+            UpdateStamina();
 
             Vector3 movementVector = transform.right * inputVector.x + transform.forward * inputVector.z + Vector3.up * inputVector.y;
 
-            if (characterController.enabled)
-                characterController.Move(movementVector * currentSpeed * Time.deltaTime);
+            float speed = IsRunning ? runSpeed : defaultSpeed;
 
+            if (characterController.enabled)
+                characterController.Move(movementVector * speed * Time.deltaTime);
+
+        }
+
+        private void UpdateStamina()
+        {
+            if(IsRunning)
+            {
+                CurStamina -= Time.deltaTime;
+                if(CurStamina <= 0)
+                    IsRunning = false;
+            }    
         }
 
         private void UpdateGroundCheck()
