@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8410521774150899755}
   - component: {fileID: 4834604765650147214}
   - component: {fileID: 7274157971576988484}
-  - component: {fileID: -8083209803028712839}
+  - component: {fileID: 2046456252051163276}
+  - component: {fileID: 4476480365571914939}
   m_Layer: 3
   m_Name: TallRock2_low
   m_TagString: Untagged
@@ -84,7 +85,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &-8083209803028712839
+--- !u!205 &2046456252051163276
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219990294383264401}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 2.1763058, z: 0}
+  m_Size: 8.90809
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7274157971576988484}
+  m_Enabled: 1
+--- !u!136 &4476480365571914939
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +123,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.49
-  m_Height: 8.908088
+  m_Radius: 1.4024838
+  m_Height: 4.454044
   m_Direction: 1
-  m_Center: {x: -0.00000011920929, y: 2.1763053, z: 0}
+  m_Center: {x: -0.000000059604645, y: 1.0881526, z: 0}
