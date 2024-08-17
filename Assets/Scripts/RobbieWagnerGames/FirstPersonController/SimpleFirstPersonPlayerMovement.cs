@@ -90,8 +90,6 @@ namespace RobbieWagnerGames.FirstPerson
                 if(value == curStamina)
                     return;
 
-                Debug.Log(CurStamina);
-
                 curStamina = value;
                 if(curStamina < 0)
                     curStamina = 0;
@@ -193,7 +191,8 @@ namespace RobbieWagnerGames.FirstPerson
             }    
             else
             {
-                CurStamina += Time.deltaTime / 2;
+                if(CurStamina < maxStamina)
+                    CurStamina += Time.deltaTime / 2;
             }
         }
 
