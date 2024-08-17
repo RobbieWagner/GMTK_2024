@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using DG.Tweening;
 using GMTK2024;
 using System;
 using System.Collections;
@@ -20,6 +21,9 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Image daySliderFill;
     [SerializeField][SerializedDictionary("Day Cycle", "UI Image")] private SerializedDictionary<Daytime, Sprite> daytimeSprites;
     [SerializeField][SerializedDictionary("Day Cycle", "Color")] private SerializedDictionary<Daytime, Color> daytimeColors;
+
+    private Coroutine transitionCo;
+    private bool initialized = false;
 
     [Header("Stamina")]
     [SerializeField] private Slider staminaSlider;
@@ -48,8 +52,31 @@ public class GameUI : MonoBehaviour
 
     private void DayCycleTransitionHandler(Daytime daytime)
     {
-        daySliderFill.color = daytimeColors[daytime]; //TODO: Transition colors (DoTween)
+        if (transitionCo == null && initialized)
+            transitionCo = StartCoroutine(DayCycleTransitionHandlerCo(daytime));
+        else
+        {
+            daySliderFill.color = daytimeColors[daytime];
+            daySliderImage.sprite = daytimeSprites[daytime];
+            initialized = true;
+        }
+
+    }
+
+    private IEnumerator DayCycleTransitionHandlerCo(Daytime daytime, float transitionTime = 2f)
+    {
+        StartCoroutine(FadeBarColor(daytime, transitionTime));
+
+        yield return daySliderImage.DOColor(Color.black, transitionTime/2).WaitForCompletion();
         daySliderImage.sprite = daytimeSprites[daytime];
+        yield return daySliderImage.DOColor(Color.white, transitionTime / 2).WaitForCompletion();
+
+        transitionCo = null;
+    }
+
+    private IEnumerator FadeBarColor(Daytime daytime, float transitionTime = 2f)
+    {
+        yield return daySliderFill.DOColor(daytimeColors[daytime], transitionTime).WaitForCompletion();
     }
 
     private void UpdateScoreText(int score)

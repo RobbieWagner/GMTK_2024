@@ -562,11 +562,6 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2692646701087253182, guid: b53b37f89f1786d43b57c167bc0d7271,
-        type: 3}
-      propertyPath: enabledByDefault
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3026245829522307516, guid: b53b37f89f1786d43b57c167bc0d7271,
         type: 3}
       propertyPath: m_AnchorMax.y

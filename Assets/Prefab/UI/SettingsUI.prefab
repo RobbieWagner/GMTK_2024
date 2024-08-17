@@ -2546,7 +2546,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5437097429428290852}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f311923dfe7cfa44994e3cd946baae6, type: 3}
   m_Name: 
@@ -2566,7 +2566,7 @@ MonoBehaviour:
   - {fileID: 222364199992430439}
   inactiveColor: {r: 1, g: 1, b: 1, a: 0.39215687}
   activeColor: {r: 1, g: 1, b: 1, a: 1}
-  enabledByDefault: 1
+  enabledByDefault: 0
 --- !u!1 &5447416184473666662
 GameObject:
   m_ObjectHideFlags: 0
