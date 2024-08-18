@@ -1,3 +1,4 @@
+using RobbieWagnerGames.Common;
 using RobbieWagnerGames.UI;
 using System;
 using System.Collections;
@@ -33,6 +34,7 @@ public class Flashlight : MonoBehaviour
 
     private void ToggleFlashlight(InputAction.CallbackContext context)
     {
+        BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Flashlight);
         flashlight.enabled = !flashlight.enabled;
     }
 

@@ -19,8 +19,7 @@ namespace RobbieWagnerGames.Common
         AntSplat4,
         AntSplat5,
 
-        Flashlight_On,
-        Flashlight_Off,
+        Flashlight,
         
         Ambience_Day,
         Ambience_Night
@@ -49,12 +48,13 @@ namespace RobbieWagnerGames.Common
             return audioSources.ContainsKey(name) ? audioSources[name] : null;
         }
 
-        public void PlayAudioSource(AudioSourceName name)
+        public void PlayAudioSource(AudioSourceName name, bool checkPlayStatus = false)
         {
             if(audioSources.ContainsKey(name) && audioSources[name] != null)
             {
                 audioSources[name].volume = 1;
-                audioSources[name].Play();
+                if(!checkPlayStatus || !audioSources[name].isPlaying)
+                    audioSources[name].Play();
             }
         }
 

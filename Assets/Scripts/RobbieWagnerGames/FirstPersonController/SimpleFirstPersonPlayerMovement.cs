@@ -1,3 +1,4 @@
+using RobbieWagnerGames.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,9 +55,10 @@ namespace RobbieWagnerGames.FirstPerson
                 if (isMoving == value)
                     return;
                 isMoving = value;
-                // Add an event to trigger if needed
+                ToggleMove?.Invoke(isMoving);
             }
         }
+        public event BoolDelegate ToggleMove;
 
         private bool isRunning = false;
         public bool IsRunning
@@ -135,6 +137,32 @@ namespace RobbieWagnerGames.FirstPerson
 
             SetupControls();
             CurStamina = maxStamina;
+
+            ToggleRun += CheckRunSound;
+            ToggleMove += CheckMoveSound;
+            
+        }
+
+        private void CheckMoveSound(bool on)
+        {
+            Debug.Log("hi");
+            if (IsMoving && !IsRunning)
+                BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Footstep_Walk);
+            else
+                BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Footstep_Walk);
+
+        }
+
+        private void CheckRunSound(bool on)
+        {
+            if (IsMoving && IsRunning)
+                BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Footstep_Run);
+            else
+            {
+                if (IsMoving)
+                    BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Footstep_Walk);
+                BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Footstep_Run);
+            }
         }
 
         private void SetupControls()
@@ -170,11 +198,13 @@ namespace RobbieWagnerGames.FirstPerson
         private void LateUpdate()
         {
             UpdateGroundCheck();
-            UpdateStamina();
 
             Vector3 movementVector = transform.right * inputVector.x + transform.forward * inputVector.z + Vector3.up * inputVector.y;
 
             float speed = IsRunning ? runSpeed : defaultSpeed;
+
+            if(IsMoving)
+                UpdateStamina();
 
             if (characterController.enabled)
                 characterController.Move(movementVector * speed * Time.deltaTime);
@@ -222,15 +252,15 @@ namespace RobbieWagnerGames.FirstPerson
 
             if (inputVector.x != input.x && input.x != 0f)
             {
-                isMoving = true;
+                IsMoving = true;
             }
             else if (input.x == 0 && inputVector.z != input.y && input.y != 0f)
             {
-                isMoving = true;
+                IsMoving = true;
             }
             else if (input.x == 0 && input.y == 0)
             {
-                isMoving = false;
+                IsMoving = false;
             }
 
             inputVector.x = input.x;

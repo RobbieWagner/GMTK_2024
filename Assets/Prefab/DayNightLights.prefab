@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1091424520767706397}
   - component: {fileID: 5224990208334017240}
+  - component: {fileID: 795661468987821504}
   m_Layer: 0
   m_Name: DayNightLights
   m_TagString: Untagged
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4711281fb27f444aaee9b29e8bc768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialRotation: 30
+  initialDaytimeValue: 30
   totalRotation: {x: 0, y: 0, z: 0}
   DawnSeconds: 10
   DawnDegrees: 30
@@ -56,6 +57,21 @@ MonoBehaviour:
   DuskDegrees: 30
   NightSeconds: 120
   NightDegrees: 150
+  minimumFogDensity: 0
+  maximumFogDensity: 0.02
+  fogFadeSpeed: 2
+--- !u!114 &795661468987821504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990344209289886666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b7ff8b2264ff24fb1d7cb63d148a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4140751600769621140
 GameObject:
   m_ObjectHideFlags: 0
