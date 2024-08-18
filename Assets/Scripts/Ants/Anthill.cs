@@ -12,7 +12,7 @@ using UnityEngine;
 public class Anthill : MonoBehaviour
 {
     [SerializeField] private int scorePerAnt = 10;
-    [SerializeField] private float antSpawnCooldown = .75f;
+    public float antSpawnCooldown = .75f;
     [SerializeField] private int maxAnts = 10;
 
     public float scoreRadius;
@@ -20,7 +20,7 @@ public class Anthill : MonoBehaviour
 
     private int antsSquashed = 0;
 
-    private float timer = 0f;
+    [HideInInspector] public float timer = 0f;
 
     private SimpleFirstPersonPlayerMovement playerMovement;
 
@@ -80,6 +80,7 @@ public class Anthill : MonoBehaviour
         {
             playerMovement = other.GetComponent<SimpleFirstPersonPlayerMovement>();
             OnTriggerHandler?.Invoke(true);
+            GameManager.Instance.CurrentStompingAnthill = this;
         }
     }
 
@@ -87,6 +88,9 @@ public class Anthill : MonoBehaviour
     {
         if (other.CompareTag("Player") && playerMovement.IsMoving)
         {
+            if (GameManager.Instance.CurrentStompingAnthill != this)
+                GameManager.Instance.CurrentStompingAnthill = this;
+
             timer += Time.deltaTime;
             OnStompTimeUpdated?.Invoke(timer);
             if (timer > antSpawnCooldown)
@@ -104,7 +108,14 @@ public class Anthill : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OnTriggerHandler?.Invoke(false);
+            GameManager.Instance.CurrentStompingAnthill = null;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager.Instance.CurrentStompingAnthill == this)
+            GameManager.Instance.CurrentStompingAnthill = null;
     }
 
     public delegate void BoolDelegate(bool isTrue);

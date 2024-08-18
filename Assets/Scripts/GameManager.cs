@@ -33,6 +33,24 @@ namespace GMTK2024
         private List<Vector3> allSpawnLocations = new List<Vector3>();
         private List<Anthill> activeAnthills = new List<Anthill>();
 
+        private Anthill currentStompingAnthill = null;
+        [HideInInspector] public Anthill CurrentStompingAnthill
+        {
+            get
+            {
+                return currentStompingAnthill;
+            }
+            set 
+            {
+                if (currentStompingAnthill == value)
+                    return;
+                currentStompingAnthill = value;
+                OnChangeCurrentAnthill?.Invoke(currentStompingAnthill);
+            }
+        }
+        public delegate void AnthillDelegate(Anthill ah);
+        public event AnthillDelegate OnChangeCurrentAnthill;
+
         private int currentScore = 0;
         public int CurrentScore
         {

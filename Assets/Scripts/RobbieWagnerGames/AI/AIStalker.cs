@@ -10,7 +10,7 @@ namespace RobbieWagnerGames.AI
     public class AIStalker : AIAgent
     {
         [SerializeField] private float maxChaseDistance = 15f; //TODO: use raycast visual instead
-        [SerializeField] private AudioSource footstepSounds;
+        //[SerializeField] private AudioSource footstepSounds;
         [SerializeField] private List<AudioSource> alertedSounds;
         private static AudioSource playingAlertedSound;
         private Coroutine alertSoundCooldown;
