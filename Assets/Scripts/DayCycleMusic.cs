@@ -9,6 +9,8 @@ public class DayCycleMusic : MonoBehaviour
     private void Awake()
     {
         DayNightCycle.Instance.OnDayCycleChange += TransitionMusic;
+
+        BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Ambience_Day);
     }
 
     private void TransitionMusic(Daytime daytime)

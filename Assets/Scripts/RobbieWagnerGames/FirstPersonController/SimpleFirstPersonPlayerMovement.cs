@@ -145,18 +145,22 @@ namespace RobbieWagnerGames.FirstPerson
 
         private void CheckMoveSound(bool on)
         {
-            Debug.Log("hi");
             if (IsMoving && !IsRunning)
                 BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Footstep_Walk);
             else
+            {
                 BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Footstep_Walk);
+            }
 
         }
 
         private void CheckRunSound(bool on)
         {
             if (IsMoving && IsRunning)
+            {
+                BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Footstep_Walk);
                 BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Footstep_Run);
+            }
             else
             {
                 if (IsMoving)
@@ -250,6 +254,7 @@ namespace RobbieWagnerGames.FirstPerson
         {
             Vector2 input = context.ReadValue<Vector2>();
 
+
             if (inputVector.x != input.x && input.x != 0f)
             {
                 IsMoving = true;
@@ -272,7 +277,7 @@ namespace RobbieWagnerGames.FirstPerson
         private void OnStop(InputAction.CallbackContext context)
         {
             inputVector = Vector3.zero;
-            isMoving = false;
+            IsMoving = false;
         }
     }
 }
