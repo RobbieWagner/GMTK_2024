@@ -25,6 +25,8 @@ namespace GMTK2024
         [SerializeField] private Transform anthillParent;
 
         [Header("Spawning")] 
+        [SerializeField] private int numberOfAnthills = 10;
+        [SerializeField] private int numberOfAnts = 5;
         [SerializeField] private GameObject spawnPointsParent;
         [SerializeField] private float playerExclusionRange;
         [SerializeField] private float otherSpawnsExclusionRange;
@@ -125,7 +127,7 @@ namespace GMTK2024
             // get valid positions relative to other anthills - ?
             
             // pick 5 random from remaining list
-            validSpawns = validSpawns.OrderBy(x => Guid.NewGuid()).Take(5).ToList();
+            validSpawns = validSpawns.OrderBy(x => Guid.NewGuid()).Take(numberOfAnthills).ToList();
 
             // spawn anthills at each point and store references in array to be destroyed later
             foreach (Vector3 spawnPos in validSpawns)
@@ -154,7 +156,7 @@ namespace GMTK2024
             // get valid positions relative to other ants - ?
             
             // pick 5 random from remaining list
-            validSpawns = validSpawns.OrderBy(x => Guid.NewGuid()).Take(5).ToList();
+            validSpawns = validSpawns.OrderBy(x => Guid.NewGuid()).Take(numberOfAnts).ToList();
 
             // spawn ants at each point
             foreach (Vector3 spawnPos in validSpawns)
