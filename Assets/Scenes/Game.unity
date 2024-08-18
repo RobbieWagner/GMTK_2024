@@ -3336,6 +3336,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayNightLights
       objectReference: {fileID: 0}
+    - target: {fileID: 2091948657598366577, guid: bd7b05d4628ef5143ba47abc7cab79bf,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 5224990208334017240, guid: bd7b05d4628ef5143ba47abc7cab79bf,
         type: 3}
       propertyPath: fogFadeSpeed
