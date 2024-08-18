@@ -31,6 +31,9 @@ public class Anthill : MonoBehaviour
 
     private List<AudioSourceName> splatSounds;
 
+    [SerializeField] private Animator animator;
+    private Coroutine destroyCo;
+
     private void Awake()
     {
         StartCoroutine(Init());
@@ -68,10 +71,26 @@ public class Anthill : MonoBehaviour
 
     private void Update()
     {
-        if (antsSquashed >= maxAnts)
+        if (antsSquashed >= maxAnts && destroyCo == null)
         {
-            Destroy(gameObject);
+            capsuleCollider.enabled = false;
+            destroyCo = StartCoroutine(DestroyAnthill());
         }
+    }
+
+    private IEnumerator DestroyAnthill()
+    {
+        if (GameManager.Instance.CurrentStompingAnthill == this)
+            GameManager.Instance.CurrentStompingAnthill = null;
+        BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.AnthillDestroy);
+
+        foreach (AIAgent agent in spawnedAgents)
+            Destroy(agent.gameObject);
+
+        animator.SetTrigger("destroy");
+
+        yield return new WaitForSeconds(.7f);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -110,12 +129,6 @@ public class Anthill : MonoBehaviour
             OnTriggerHandler?.Invoke(false);
             GameManager.Instance.CurrentStompingAnthill = null;
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (GameManager.Instance.CurrentStompingAnthill == this)
-            GameManager.Instance.CurrentStompingAnthill = null;
     }
 
     public delegate void BoolDelegate(bool isTrue);

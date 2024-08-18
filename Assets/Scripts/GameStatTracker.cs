@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameStatTracker : MonoBehaviour
 {
+    public enum Statistic
+    {
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8532538981131202326}
   - component: {fileID: 8894547824426624049}
   - component: {fileID: 4839504279090319340}
+  - component: {fileID: 8603979926018440070}
   m_Layer: 0
   m_Name: TutorialAnthill
   m_TagString: Untagged
@@ -89,6 +90,28 @@ MonoBehaviour:
   - {x: 0.25, y: -1, z: -0.4}
   - {x: 1, y: -1, z: -0.4}
   - {x: -0.7, y: -1, z: 0}
+  animator: {fileID: 8603979926018440070}
+--- !u!95 &8603979926018440070
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303881670407465953}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee84d5ae87ca37245b9682655639ebaa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7437204872991466193
 PrefabInstance:
   m_ObjectHideFlags: 0

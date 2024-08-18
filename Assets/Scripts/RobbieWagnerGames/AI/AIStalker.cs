@@ -1,9 +1,11 @@
 using RobbieWagnerGames.Common;
+using RobbieWagnerGames.FirstPerson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace RobbieWagnerGames.AI
 {
@@ -14,6 +16,9 @@ namespace RobbieWagnerGames.AI
         [SerializeField] private List<AudioSource> alertedSounds;
         private static AudioSource playingAlertedSound;
         private Coroutine alertSoundCooldown;
+
+        [SerializeField] private float minStalkDistance = 75f;
+        [SerializeField] private float maxStalkDistance = 200f;
 
         protected override void Awake()
         {
@@ -86,6 +91,39 @@ namespace RobbieWagnerGames.AI
 
             if(Vector3.Distance(chasingTarget.transform.position, transform.position) > maxChaseDistance)
                 GoIdle();
+        }
+
+        public override void MoveToRandomSpot(float range = 100f)
+        {
+            StartCoroutine(StalkPlayer(SimpleFirstPersonPlayerMovement.Instance.transform.position, minStalkDistance, maxStalkDistance));
+        }
+
+        public virtual IEnumerator StalkPlayer(Vector3 offset, float minRange = 75f, float maxRange = 200f, int tryLimit = 10000, int triesBeforeYield = 25)
+        {
+            int tries = 0;
+            bool success = false;
+            while (tries < tryLimit)
+            {
+                tries++;
+                if (tries % triesBeforeYield == 0)
+                    yield return null;
+
+                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * maxRange; // transform.position?
+                randomDirection += offset;
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(randomDirection, out hit, maxRange, NavMesh.AllAreas))
+                {
+                    if(Vector3.Distance(SimpleFirstPersonPlayerMovement.Instance.transform.position, hit.position) >= minRange)
+                    {
+                        MoveAgent(hit.position);
+                        success = true;
+                        yield break;
+                    }
+                }
+            }
+
+            if (!success)
+                Debug.LogWarning($"Could not find a path after trying {tryLimit} times!");
         }
     }
 }

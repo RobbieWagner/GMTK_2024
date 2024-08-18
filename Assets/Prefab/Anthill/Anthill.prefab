@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5614403549395907166}
   - component: {fileID: 2907686899495670469}
   - component: {fileID: 1143032519203798692}
+  - component: {fileID: -638221844278217750}
   m_Layer: 0
   m_Name: Anthill
   m_TagString: Untagged
@@ -74,6 +75,7 @@ MonoBehaviour:
   maxAnts: 10
   scoreRadius: 2.25
   capsuleCollider: {fileID: 2907686899495670469}
+  timer: 0
   antPrefab: {fileID: -1684547498193756307, guid: ae283a5b3dddf7148a86357f30cb0e54,
     type: 3}
   antsToSpawn: {x: 7, y: 10}
@@ -88,6 +90,28 @@ MonoBehaviour:
   - {x: 0.25, y: -1, z: -0.4}
   - {x: 1, y: -1, z: -0.4}
   - {x: -0.7, y: -1, z: 0}
+  animator: {fileID: -638221844278217750}
+--- !u!95 &-638221844278217750
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5680057224839851038}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b9b4ca8c824cc08458728026f187820b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7376969032986700695
 PrefabInstance:
   m_ObjectHideFlags: 0
