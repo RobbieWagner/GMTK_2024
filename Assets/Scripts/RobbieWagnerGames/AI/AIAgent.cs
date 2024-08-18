@@ -46,9 +46,17 @@ namespace RobbieWagnerGames.AI
                 if(value == currentState)
                     return;
                 currentState = value;
+                OnStateChange?.Invoke(currentState);
             }
         }
+        public delegate void AIStateDelegate(AIState state);
+        public event AIStateDelegate OnStateChange;
         //TODO: Add a delegate and event? Does Observer pattern need to be implemented?
+
+        protected virtual void Awake()
+        {
+            
+        }
 
         #region State Changing
         public virtual void GoIdle()
@@ -71,7 +79,7 @@ namespace RobbieWagnerGames.AI
             return success;
         }
 
-        public bool ChaseNearestTarget()
+        public virtual bool ChaseNearestTarget()
         {
             //Debug.Log("Chase Nearest Target.");
             AITarget closestTarget = null;

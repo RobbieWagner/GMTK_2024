@@ -103,7 +103,7 @@ namespace RobbieWagnerGames.FirstPerson
 
         [SerializeField] private float defaultSpeed = 5f;
         [SerializeField] private float runSpeed = 10f;
-        [SerializeField] private float slowSpeed = 2.5f;
+        //[SerializeField] private float slowSpeed = 2.5f;
         private Vector3 inputVector = Vector3.zero;
         private PlayerMovementActions inputActions;
 

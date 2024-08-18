@@ -1,20 +1,29 @@
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using System.Collections;
+using DG.Tweening;
+using Ink.Parsed;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RobbieWagnerGames.Common
 {
     public enum AudioSourceName
     {
-        UINav = 0,
-        UISelect = 1,
-        UIExit = 2,
-        Bounce = 3,
-        PointGain = 4,
-        LeafGain = 5,
-        FlowerGain = 6,
-        Purchase = 7,
-        Music = 8,
-        UIFail = 9
+        Footstep_Walk,
+        Footstep_Run,
+
+        AntSplat1,  
+        AntSplat2,
+        AntSplat3,
+        AntSplat4,
+        AntSplat5,
+
+        Flashlight_On,
+        Flashlight_Off,
+        
+        Ambience_Day,
+        Ambience_Night
     }
 
     public class BasicAudioManager : MonoBehaviour
@@ -35,10 +44,16 @@ namespace RobbieWagnerGames.Common
             } 
         }
 
+        public AudioSource GetAudioSource(AudioSourceName name)
+        {
+            return audioSources.ContainsKey(name) ? audioSources[name] : null;
+        }
+
         public void PlayAudioSource(AudioSourceName name)
         {
             if(audioSources.ContainsKey(name) && audioSources[name] != null)
             {
+                audioSources[name].volume = 1;
                 audioSources[name].Play();
             }
         }
@@ -49,6 +64,50 @@ namespace RobbieWagnerGames.Common
             {
                 audioSources[name].Stop();
             }
+        }
+
+        public IEnumerator FadeSoundCo(AudioSourceName name, float fadeTime = 2f, bool fadeIn = false)
+        {
+            if (audioSources.ContainsKey(name) && audioSources[name] != null)
+            {
+                yield return StartCoroutine(FadeSound(audioSources[name], fadeTime, fadeIn));
+                AudioSource audioSource = audioSources[name];
+                if (fadeIn && !audioSource.isPlaying)
+                {
+                    yield return audioSource.DOFade(1, fadeTime).WaitForCompletion();
+                    audioSource.Play();
+                }
+            }
+        }
+
+        public static IEnumerator FadeSound(AudioSource source, float fadeTime = 2f, bool fadeIn = false)
+        {
+            if (fadeIn && !source.isPlaying)
+            {
+                source.volume = 0.0f;
+                source.Play();
+                yield return source.DOFade(1, fadeTime).WaitForCompletion();
+            }
+
+            else if(!fadeIn && source.isPlaying)
+            {
+                yield return source.DOFade(0, fadeTime).WaitForCompletion();
+                source.Stop();
+            }
+        }
+
+        public IEnumerator PlayRandomSound(List<AudioSourceName> sources, bool stopPlayingSounds = false)
+        {
+            List<AudioSource> audioSources = sources.Select(x => GetAudioSource(x)).Where(x => x != null).ToList();
+            if (audioSources == null)
+            {
+                Debug.LogWarning("Could not play random audio source: No Audio Sources found!");
+                yield break;
+            }
+
+            List<AudioSource> validSources = stopPlayingSounds ? audioSources : audioSources.Where(x => !x.isPlaying).ToList();
+
+            validSources[UnityEngine.Random.Range(0, validSources.Count)].Play();
         }
     }
 }
