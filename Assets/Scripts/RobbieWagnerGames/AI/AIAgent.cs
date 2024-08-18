@@ -221,20 +221,7 @@ namespace RobbieWagnerGames.AI
         // update search check if path you're following is incomplete, if you reach end then go idle but if you see player again go back to chase
         protected virtual void UpdateSearchState()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position + transform.up * 2f,
-                    chasingTarget.transform.position - transform.position, out hit, 200f, raycastLayers))
-            {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    ChaseNearestTarget();
-                }
-            }
             
-            if (agent.destination == null || chasingTarget == null || AIManager.GetPathLength(agent.path) < .05f) 
-            {
-                GoIdle();
-            }
         }
 
         protected virtual void OnCollisionEnter(Collision collision)

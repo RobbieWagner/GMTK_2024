@@ -5,6 +5,7 @@ using DG.Tweening;
 using Ink.Parsed;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.ProBuilder.MeshOperations;
 
 namespace RobbieWagnerGames.Common
 {
@@ -130,11 +131,17 @@ namespace RobbieWagnerGames.Common
 
             List<AudioSource> validSources = stopPlayingSounds ? audioSources : audioSources.Where(x => !x.isPlaying).ToList();
 
-            AudioSource playingSource = validSources[UnityEngine.Random.Range(0, validSources.Count)];
+            if (validSources.Any())
+            {
+                AudioSource playingSource = validSources[UnityEngine.Random.Range(0, validSources.Count)];
 
-            playingSource.Play();
-            
-            return playingSource;
+                playingSource.Play();
+
+                return playingSource;
+
+            }
+
+            return null;
         }
 
         public IEnumerator DelayAudioPlay(AudioSourceName audio, float delay)
