@@ -150,6 +150,7 @@ namespace RobbieWagnerGames.FirstPerson
             else
             {
                 BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Footstep_Walk);
+                BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Footstep_Run);
             }
 
         }
