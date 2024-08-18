@@ -1,3 +1,4 @@
+using GMTK2024;
 using RobbieWagnerGames.Common;
 using RobbieWagnerGames.UI;
 using System;
@@ -36,6 +37,8 @@ public class Flashlight : MonoBehaviour
     {
         BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Flashlight);
         flashlight.enabled = !flashlight.enabled;
+
+        GameStatTracker.Instance.SetStat(GameStatistic.Flashlight_Clicks, 1, true);
     }
 
     private void OnDestroy()

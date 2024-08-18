@@ -85,6 +85,8 @@ public class Anthill : MonoBehaviour
         if(antsSquashed >= maxAnts)
             BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.AnthillDestroy);
 
+        GameStatTracker.Instance.SetStat(GameStatistic.Anthills_Destroyed, 1, true);
+
         foreach (AIAgent agent in spawnedAgents)
             Destroy(agent.gameObject);
 

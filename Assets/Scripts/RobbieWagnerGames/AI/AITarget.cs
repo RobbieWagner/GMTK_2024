@@ -1,3 +1,4 @@
+using GMTK2024;
 using RobbieWagnerGames.Common;
 using RobbieWagnerGames.Minijam164;
 using System.Collections;
@@ -22,6 +23,11 @@ namespace RobbieWagnerGames.AI
 
         public virtual IEnumerator Die()
         {
+            GameStatTracker.Instance?.SetStat(GameStatistic.Deaths, 1, true);
+            GameStatTracker.Instance?.SetStat(GameStatistic.Total_Ants_Killed, GameManager.Instance.CurrentScore, true);
+            if(GameManager.Instance.CurrentScore > GameStatTracker.Instance.GetStat(GameStatistic.Highscore))
+                GameStatTracker.Instance?.SetStat(GameStatistic.Highscore, GameManager.Instance.CurrentScore);
+
             BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Death);
             
             BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Ambience_Night);
