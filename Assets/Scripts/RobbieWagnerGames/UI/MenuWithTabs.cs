@@ -62,6 +62,7 @@ namespace RobbieWagnerGames.UI
 
         protected override void OnEnable()
         {
+            Debug.Log("hi");
             BuildMenu();
             base.OnEnable();
             ActiveTab = 0;
@@ -75,10 +76,19 @@ namespace RobbieWagnerGames.UI
             uiControls.Disable();
         }
 
+        protected override void BackToLastMenu()
+        {
+            base.BackToLastMenu();
+            enabled = false;
+            activeTab = -1;
+        }
+
         protected virtual void BuildMenu()
         {
             foreach(MenuTab tab in menus)
                 tab.BuildTab();
+
+            thisCanvas.enabled = true;
         }
 
         private void NavigateTab(InputAction.CallbackContext context)

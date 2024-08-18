@@ -403,7 +403,7 @@ MonoBehaviour:
   agent: {fileID: 9219974994076525845}
   idleWaitTime: 3
   movementRange: 50
-  maxChaseDistance: 15
+  maxChaseDistance: 40
   footstepSounds: {fileID: 7543308590878434894}
   alertSound: {fileID: 7712639376849632792}
 --- !u!54 &-6806583633223388201

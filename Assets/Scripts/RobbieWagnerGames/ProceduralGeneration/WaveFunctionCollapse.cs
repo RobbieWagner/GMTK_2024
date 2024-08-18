@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
-using static UnityEditor.Rendering.CameraUI;
 
 namespace RobbieWagnerGames.ProcGen
 {

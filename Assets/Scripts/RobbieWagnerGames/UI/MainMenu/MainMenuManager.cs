@@ -18,7 +18,7 @@ namespace RobbieWagnerGames.UI
 
         [SerializeField] private string sceneToGoTo;
 
-        [SerializeField] private Canvas settings;
+        [SerializeField] private MenuWithTabs settingsMenu;
         [SerializeField] private Canvas controls;
         [SerializeField] private Canvas credits;
 
@@ -60,7 +60,7 @@ namespace RobbieWagnerGames.UI
         private void OpenSettings()
         {
             thisCanvas.enabled = false;
-            settings.enabled = true;
+            settingsMenu.enabled = true;
         }
 
         private void OpenControls()
