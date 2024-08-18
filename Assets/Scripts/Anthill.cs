@@ -79,6 +79,7 @@ public class Anthill : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerMovement = other.GetComponent<SimpleFirstPersonPlayerMovement>();
+            OnTriggerHandler?.Invoke(true);
         }
     }
 
@@ -87,6 +88,7 @@ public class Anthill : MonoBehaviour
         if (other.CompareTag("Player") && playerMovement.IsMoving)
         {
             timer += Time.deltaTime;
+            OnStompTimeUpdated?.Invoke(timer);
             if (timer > antSpawnCooldown)
             {
                 antsSquashed++;
@@ -96,4 +98,18 @@ public class Anthill : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            OnTriggerHandler?.Invoke(false);
+        }
+    }
+
+    public delegate void BoolDelegate(bool isTrue);
+    public event BoolDelegate OnTriggerHandler;
+
+    public delegate void FloatDelegate(float time);
+    public event FloatDelegate OnStompTimeUpdated;
 }
