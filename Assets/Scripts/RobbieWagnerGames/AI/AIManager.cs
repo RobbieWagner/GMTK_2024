@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,11 +38,11 @@ namespace RobbieWagnerGames.AI
             if (parent != null)
                 agent = Instantiate(agentPrefab, parent);
             else
-                agent = Instantiate(agentPrefab);
+                agent = Instantiate(agentPrefab, startingPos, Quaternion.identity);
 
-            agent.transform.position = startingPos;
             agent.SetTargets(initialTargets);
             activeAgents.Add(agent);
+            Debug.Log("Passed Position " + agent.transform.position);
             return agent;
         }
 

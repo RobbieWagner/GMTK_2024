@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace GMTK2024
@@ -18,10 +19,8 @@ namespace GMTK2024
     {
         [Header("AI Chasers")]
         [SerializeField] private AIStalker stalkerPrefab;
-        [SerializeField] private List<Vector3> chaserSpawnLocations;
 
         [Header("Points")]
-        [SerializeField] private List<Vector3> anthillSpawnLocations;
         [SerializeField] private Anthill anthillPrefab;
         [SerializeField] private Transform anthillParent;
 
@@ -160,7 +159,11 @@ namespace GMTK2024
             // spawn ants at each point
             foreach (Vector3 spawnPos in validSpawns)
             {
-                AIManager.Instance.AddAgentToScene(stalkerPrefab, spawnPos, player);
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(spawnPos, out hit, 1.0f, NavMesh.AllAreas))
+                {
+                    AIManager.Instance.AddAgentToScene(stalkerPrefab, hit.position, player);
+                }
             }
             AIManager.Instance.InitializeAI();
         }
