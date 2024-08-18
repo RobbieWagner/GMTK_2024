@@ -15,6 +15,8 @@ public class GameUI : MonoBehaviour
     private int displayedScore = 0;
     [SerializeField] private TextMeshProUGUI scoreText;
     private Coroutine scoreTextUpdateCo;
+    [SerializeField] private Slider scoreGainSlider;
+    private Anthill currentTrackedAnthill = null;
 
     [Header("Day Cycle UI")]
     [SerializeField] private Slider dayCycleSlider; // Add a day cycle bar showing time of day? (circular slider)
@@ -59,6 +61,43 @@ public class GameUI : MonoBehaviour
         staminaSlider.value = SimpleFirstPersonPlayerMovement.Instance.CurStamina;
         SimpleFirstPersonPlayerMovement.Instance.OnStaminaChanged += UpdateStaminaSlider;
         staminaFillImage.color = normalStaminaColor;
+
+        scoreGainSlider.gameObject.SetActive(false);
+
+        GameManager.Instance.OnChangeCurrentAnthill += UpdateCurrentAnthill;
+    }
+
+    private void UpdateCurrentAnthill(Anthill ah)
+    {
+        if(currentTrackedAnthill != null)
+        {
+            UnsubscribeAnthill();
+        }
+        currentTrackedAnthill = ah;
+        if(currentTrackedAnthill != null)
+        {
+            SubscribeAnthill();
+        }
+    }
+
+    private void SubscribeAnthill()
+    {
+        scoreGainSlider?.gameObject.SetActive(true);
+        currentTrackedAnthill.OnStompTimeUpdated += UpdateCurrentAnthill;
+
+        scoreGainSlider.maxValue = currentTrackedAnthill.antSpawnCooldown;
+    }
+
+    private void UnsubscribeAnthill()
+    {
+        scoreGainSlider?.gameObject.SetActive(false);
+        currentTrackedAnthill.OnStompTimeUpdated -= UpdateCurrentAnthill;
+    }
+
+    private void UpdateCurrentAnthill(float time)
+    {
+        if(currentTrackedAnthill != null)
+            scoreGainSlider.value = currentTrackedAnthill.timer;
     }
 
     private void Update()
