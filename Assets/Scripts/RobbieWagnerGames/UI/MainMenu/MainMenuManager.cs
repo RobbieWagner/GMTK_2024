@@ -37,10 +37,13 @@ namespace RobbieWagnerGames.UI
         {
             yield return null;
 
-            audioMixer.SetFloat("Main", PlayerPrefs.GetFloat("Main", -5f));
-            audioMixer.SetFloat("Player", PlayerPrefs.GetFloat("Player", -5f));
-            audioMixer.SetFloat("UI", PlayerPrefs.GetFloat("UI", -5f));
-            audioMixer.SetFloat("Music", PlayerPrefs.GetFloat("Music", -5f));
+            if(audioMixer != null)
+            {
+                audioMixer.SetFloat("Main", PlayerPrefs.GetFloat("Main", -5f));
+                audioMixer.SetFloat("Player", PlayerPrefs.GetFloat("Player", -5f));
+                audioMixer.SetFloat("UI", PlayerPrefs.GetFloat("UI", -5f));
+                audioMixer.SetFloat("Music", PlayerPrefs.GetFloat("Music", -5f));
+            }
         }
 
         protected override void OnEnable()

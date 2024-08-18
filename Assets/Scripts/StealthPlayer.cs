@@ -80,7 +80,7 @@ public class StealthPlayer : MonoBehaviour
                 radiusOfDetection.radius = revealedRadius;
             else if (IsRevealed)
                 radiusOfDetection.radius = revealedRadius;
-            else if (IsRevealed && IsHiding)
+            else if (!IsRevealed && !IsHiding)
                 radiusOfDetection.radius = defaultRadius;
             else if (IsHiding)
                 radiusOfDetection.radius = obscuredRadius;
@@ -89,17 +89,18 @@ public class StealthPlayer : MonoBehaviour
 
     public void ObscurePlayer()
     {
-        radiusOfDetection.radius = obscuredRadius;
+        IsHiding = true;
     }
 
     public void ResetPlayer()
     {
-        radiusOfDetection.radius = defaultRadius;
+        IsHiding = false;
+        IsRevealed = false;
     }
 
     public void RevealPlayer()
     {
-        radiusOfDetection.radius = revealedRadius;
+        IsRevealed = true;
     }
 
 }

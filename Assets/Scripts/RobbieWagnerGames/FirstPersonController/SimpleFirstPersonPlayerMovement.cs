@@ -217,7 +217,7 @@ namespace RobbieWagnerGames.FirstPerson
 
         private void UpdateStamina()
         {
-            if(IsMoving && IsRunning)
+            if(IsMoving && IsRunning && inputVector.z > 0)
             { 
                 CurStamina -= Time.deltaTime;
                 if(CurStamina <= 0)
@@ -225,6 +225,8 @@ namespace RobbieWagnerGames.FirstPerson
             }    
             else
             {
+                if (inputVector.z <= 0)
+                    IsRunning = false;
                 if(CurStamina < maxStamina)
                     CurStamina += Time.deltaTime / 2;
             }
