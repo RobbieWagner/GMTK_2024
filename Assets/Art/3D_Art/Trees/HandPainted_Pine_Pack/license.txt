@@ -1,0 +1,8 @@
+Model Information:
+* title:	HandPainted Pine Pack
+* source:	https://sketchfab.com/3d-models/handpainted-pine-pack-4dbf58ecc3b14153bd2f42add5b54fb9
+* author:	ZugZug Art (https://sketchfab.com/zugzug)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
