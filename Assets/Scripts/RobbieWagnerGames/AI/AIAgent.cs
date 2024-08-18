@@ -206,7 +206,7 @@ namespace RobbieWagnerGames.AI
                 if(tries % triesBeforeYield == 0)
                     yield return null;
                 
-                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * range;
+                Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * range; // transform.position?
                 randomDirection += offset;
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(randomDirection, out hit, range, NavMesh.AllAreas))
@@ -225,13 +225,16 @@ namespace RobbieWagnerGames.AI
         #region AITarget Chasing
         public virtual void SetTargets(List<AITarget> targets, bool removeOldTargets = false, bool chaseNearestTarget = false)
         {
-            if(removeOldTargets)
-                currentTargets.Clear();
-            
-            currentTargets.AddRange(targets);
+            if (targets != null && targets.Any())
+            {
+                if (removeOldTargets)
+                    currentTargets.Clear();
 
-            if (chaseNearestTarget)
-                ChaseNearestTarget();
+                currentTargets.AddRange(targets);
+
+                if (chaseNearestTarget)
+                    ChaseNearestTarget();
+            }
         }
         #endregion
     }

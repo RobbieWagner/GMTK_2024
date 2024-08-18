@@ -30,11 +30,15 @@ namespace RobbieWagnerGames.AI
             }
         }
 
-        public AIAgent AddAgentToScene(AIAgent agentPrefab, Vector3 startingPos, List<AITarget> initialTargets)
+        public AIAgent AddAgentToScene(AIAgent agentPrefab, Vector3 startingPos, List<AITarget> initialTargets, Transform parent = null)
         {
-            AIAgent agent = Instantiate(agentPrefab);
+            AIAgent agent;
+            if (parent != null)
+                agent = Instantiate(agentPrefab, parent);
+            else
+                agent = Instantiate(agentPrefab);
+
             agent.transform.position = startingPos;
-            Debug.Log(startingPos + " vs " + agent.transform.position);
             agent.SetTargets(initialTargets);
             activeAgents.Add(agent);
             return agent;

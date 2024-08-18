@@ -96,13 +96,13 @@ namespace RobbieWagnerGames.Common
             }
         }
 
-        public IEnumerator PlayRandomSound(List<AudioSourceName> sources, bool stopPlayingSounds = false)
+        public void PlayRandomSound(List<AudioSourceName> sources, bool stopPlayingSounds = false)
         {
             List<AudioSource> audioSources = sources.Select(x => GetAudioSource(x)).Where(x => x != null).ToList();
             if (audioSources == null)
             {
                 Debug.LogWarning("Could not play random audio source: No Audio Sources found!");
-                yield break;
+                return;
             }
 
             List<AudioSource> validSources = stopPlayingSounds ? audioSources : audioSources.Where(x => !x.isPlaying).ToList();

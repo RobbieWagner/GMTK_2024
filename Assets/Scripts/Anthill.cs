@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GMTK2024;
+using RobbieWagnerGames.AI;
+using RobbieWagnerGames.Common;
 using RobbieWagnerGames.FirstPerson;
 using UnityEngine;
 
@@ -10,21 +12,63 @@ using UnityEngine;
 public class Anthill : MonoBehaviour
 {
     [SerializeField] private int scorePerAnt = 10;
-    [SerializeField] private float antSpawnCooldown = 1f;
+    [SerializeField] private float antSpawnCooldown = .75f;
     [SerializeField] private int maxAnts = 10;
 
-    private int antsSpawned = 0;
+    public float scoreRadius;
+    [SerializeField] private CapsuleCollider capsuleCollider;
+
+    private int antsSquashed = 0;
 
     private float timer = 0f;
-    
-    private bool playerInRange = false;
-    private bool isCoroutineRunning = false;
 
     private SimpleFirstPersonPlayerMovement playerMovement;
 
+    [SerializeField] private AnthillAntAgent antPrefab;
+    [SerializeField] private Vector2Int antsToSpawn;
+    private List<AnthillAntAgent> spawnedAgents = new List<AnthillAntAgent>();
+    [SerializeField] private List<Vector3> antSpawnLocations;
+
+    private List<AudioSourceName> splatSounds;
+
+    private void Awake()
+    {
+        StartCoroutine(Init());
+    }
+
+    private IEnumerator Init()
+    {
+        yield return null;
+
+        splatSounds = new List<AudioSourceName>()
+        {
+            AudioSourceName.AntSplat1,
+            AudioSourceName.AntSplat2,
+            AudioSourceName.AntSplat3,
+            AudioSourceName.AntSplat4,
+            AudioSourceName.AntSplat5,
+        };
+
+        capsuleCollider.radius = scoreRadius;
+
+        for (int i = 0; i < UnityEngine.Random.Range(antsToSpawn.x, antsToSpawn.y); i++)
+        {
+            Vector3 pos = transform.position + antSpawnLocations[i];
+            AnthillAntAgent agent = AIManager.Instance.AddAgentToScene(antPrefab, pos, null, transform) as AnthillAntAgent;
+            agent.anthill = this;
+            agent.transform.position = pos;
+            spawnedAgents.Add(agent);
+        }
+
+        foreach (AIAgent agent in spawnedAgents)
+        {
+            agent.GoIdle();
+        }
+    }
+
     private void Update()
     {
-        if (antsSpawned > maxAnts)
+        if (antsSquashed >= maxAnts)
         {
             Destroy(gameObject);
         }
@@ -45,9 +89,10 @@ public class Anthill : MonoBehaviour
             timer += Time.deltaTime;
             if (timer > antSpawnCooldown)
             {
-                antsSpawned++;
+                antsSquashed++;
                 GameManager.Instance.CurrentScore += scorePerAnt;
                 timer = 0f;
+                BasicAudioManager.Instance.PlayRandomSound(splatSounds);
             }
         }
     }

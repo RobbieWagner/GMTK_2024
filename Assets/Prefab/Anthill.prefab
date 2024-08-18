@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5680057224839851038
+--- !u!1 &2669291834229511876
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5614403549395907166}
-  - component: {fileID: 8178906108308280695}
-  - component: {fileID: 863496778905726749}
-  - component: {fileID: 2907686899495670469}
-  - component: {fileID: 1143032519203798692}
+  - component: {fileID: 3405080754037367642}
+  - component: {fileID: 6578466454192466489}
+  - component: {fileID: 7864476539195667763}
   m_Layer: 0
-  m_Name: Anthill
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5614403549395907166
+--- !u!4 &3405080754037367642
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5680057224839851038}
+  m_GameObject: {fileID: 2669291834229511876}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.180037, y: 0.821, z: -2.4244802}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 5614403549395907166}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8178906108308280695
+--- !u!33 &6578466454192466489
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5680057224839851038}
+  m_GameObject: {fileID: 2669291834229511876}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &863496778905726749
+--- !u!23 &7864476539195667763
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5680057224839851038}
+  m_GameObject: {fileID: 2669291834229511876}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -85,6 +83,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5680057224839851038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5614403549395907166}
+  - component: {fileID: 2907686899495670469}
+  - component: {fileID: 1143032519203798692}
+  m_Layer: 0
+  m_Name: Anthill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5614403549395907166
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5680057224839851038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.180037, y: 0.821, z: -2.4244802}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3405080754037367642}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2907686899495670469
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -105,7 +137,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.3
-  m_Height: 3
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1143032519203798692
@@ -120,3 +152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed030728338745141aa9fd80c160ee0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scorePerAnt: 10
+  antSpawnCooldown: 0.75
+  maxAnts: 10
+  scoreRadius: 2.25
+  capsuleCollider: {fileID: 2907686899495670469}
+  antPrefab: {fileID: -1684547498193756307, guid: ae283a5b3dddf7148a86357f30cb0e54,
+    type: 3}
+  antsToSpawn: {x: 7, y: 10}
+  antSpawnLocations:
+  - {x: 0.7, y: -1, z: 0}
+  - {x: 1, y: -1, z: 0.1}
+  - {x: 0.4, y: -1, z: 0.4}
+  - {x: -0.4, y: -1, z: -0.4}
+  - {x: 0.5, y: -1, z: 0.9}
+  - {x: 0.5, y: -1, z: -0.9}
+  - {x: -1, y: -1, z: 0.1}
+  - {x: 0.25, y: -1, z: -0.4}
+  - {x: 1, y: -1, z: -0.4}
+  - {x: -0.7, y: -1, z: 0}
