@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,11 +68,6 @@ public class DayNightCycle : MonoBehaviour
     [Header("Night")]
     [SerializeField] private float NightSeconds = 120f;
     [SerializeField] private float NightDegrees = 150f;
-    
-    [Header("Fog")]
-    [SerializeField] private float minimumFogDensity = 0f;
-    [SerializeField] private float maximumFogDensity = 0.1f;
-    [SerializeField] private float fogFadeSpeed = 10f;
 
     private Transform sunlight;
     private Transform moonlight;
@@ -121,6 +117,12 @@ public class DayNightCycle : MonoBehaviour
         // when set, do OnDayCycleChange?.Invoke(daytime);
     }
 
+    private void LateUpdate()
+    {
+        Shader.SetGlobalVector("_SunDir", -sunlight.forward);
+        Shader.SetGlobalVector("_MoonDir", -moonlight.forward);
+    }
+
     private void CheckTime()
     {
         if (daytime != Daytime.DAWN && totalRotation.x < DawnDegrees)
@@ -148,7 +150,6 @@ public class DayNightCycle : MonoBehaviour
 
     void DawnUpdate()
     {
-        RenderSettings.fogDensity = Mathf.Lerp(maximumFogDensity, minimumFogDensity, Time.deltaTime * fogFadeSpeed);
         UpdateDayTimeCycle(DawnDegrees / DawnSeconds);
     }
 
@@ -159,7 +160,6 @@ public class DayNightCycle : MonoBehaviour
 
     void DuskUpdate()
     {
-        RenderSettings.fogDensity = Mathf.Lerp(minimumFogDensity, maximumFogDensity, Time.deltaTime * fogFadeSpeed);
         UpdateDayTimeCycle(DuskDegrees / DuskSeconds);
     }
 
