@@ -240,7 +240,7 @@ namespace RobbieWagnerGames.AI
             RaycastHit hit;
             if (Physics.Raycast(transform.position + transform.forward * 2.9f, transform.forward, out hit, 60f, raycastLayers))
             {
-                if (hit.transform.gameObject == chasingTarget.gameObject)
+                if (hit.collider.CompareTag("Player"))
                 {
                     ChaseNearestTarget();
                 }

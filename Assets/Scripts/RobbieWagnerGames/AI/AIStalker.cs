@@ -78,11 +78,11 @@ namespace RobbieWagnerGames.AI
             {
                 timer = 0;
                 RaycastHit hit;
-                Debug.DrawRay(transform.position + transform.up * 2f, (transform.position - other.transform.position) * 200, Color.blue, 0.5f);
+                Debug.DrawRay(transform.position + transform.up * 2f, (transform.position - other.transform.position).normalized * 200, Color.blue, 0.5f);
                 if (other.CompareTag("Player") && Physics.Raycast(transform.position + transform.up * 2f,
                         transform.position - other.transform.position, out hit, 200f, raycastLayers))
                 {
-                    if (hit.transform.gameObject.CompareTag("Player"))
+                    if (hit.transform.gameObject.CompareTag("Player") && CurrentState != AIState.CHASING)
                     {
                         Debug.Log("Found Player: " + hit.transform.gameObject);
                         ChaseNearestTarget();
@@ -100,8 +100,7 @@ namespace RobbieWagnerGames.AI
             if(base.ChaseNearestTarget())
             {
                 chasingTarget.chasers.Add(this);
-                //if(alertSound != null && !alertSound.isPlaying)
-                //    alertSound.Play();
+                
                 return true;
             }
             return false;

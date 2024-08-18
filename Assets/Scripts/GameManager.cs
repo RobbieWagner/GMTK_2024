@@ -160,6 +160,7 @@ namespace GMTK2024
 
         private void DespawnAnthills()
         {
+            activeAnthills = activeAnthills.Where(x => x != null).ToList();
             foreach (Anthill anthill in activeAnthills)
             {
                 StartCoroutine(anthill.DestroyAnthill());
