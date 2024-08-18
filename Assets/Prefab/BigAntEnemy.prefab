@@ -738,12 +738,17 @@ MonoBehaviour:
   movementRange: 50
   animator: {fileID: 1224966883301106632}
   footstepSounds: {fileID: 7543308590878434894}
+  raycastLayers:
+    serializedVersion: 2
+    m_Bits: 223
   maxChaseDistance: 40
   alertedSounds:
   - {fileID: 7712639376849632792}
   - {fileID: 4186386079483815343}
   - {fileID: 4654745084917965054}
   - {fileID: 7587370459897005047}
+  minStalkDistance: 75
+  maxStalkDistance: 200
 --- !u!54 &-6806583633223388201
 Rigidbody:
   m_ObjectHideFlags: 0

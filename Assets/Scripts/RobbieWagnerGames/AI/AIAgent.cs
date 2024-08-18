@@ -16,7 +16,8 @@ namespace RobbieWagnerGames.AI
         NONE = -1,
         IDLE = 0,
         MOVING = 1,
-        CHASING = 2
+        CHASING = 2,
+        SEARCHING = 3
     }
 
     // DEFINES THE BASE AI AGENT AND HELPFUL METHODS
@@ -36,6 +37,7 @@ namespace RobbieWagnerGames.AI
 
         [SerializeField] protected Animator animator;
         [SerializeField] protected AudioSource footstepSounds;
+        [SerializeField] protected LayerMask raycastLayers;
 
         protected AIState currentState = AIState.NONE;
         public AIState CurrentState
@@ -63,7 +65,7 @@ namespace RobbieWagnerGames.AI
 
         protected virtual void UpdateAnimator(AIState state)
         {
-            if (state == AIState.MOVING || state == AIState.CHASING)
+            if (state == AIState.MOVING || state == AIState.CHASING || state == AIState.SEARCHING)
             {
                 if(footstepSounds != null)
                 {
@@ -94,6 +96,11 @@ namespace RobbieWagnerGames.AI
             {
                 agent.isStopped = true;
                 CurrentState = AIState.IDLE;
+            }
+
+            if (chasingTarget != null)
+            {
+                chasingTarget.chasers.Remove(this);
             }
         }
 
@@ -169,6 +176,9 @@ namespace RobbieWagnerGames.AI
                 case AIState.CHASING:
                     UpdateChaseState();
                     break;
+                case AIState.SEARCHING:
+                    UpdateSearchState();
+                    break;
                 default:
                     break;
             }
@@ -195,6 +205,22 @@ namespace RobbieWagnerGames.AI
 
         protected virtual void UpdateChaseState()
         {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + transform.forward * 2.9f, transform.forward, out hit, 60f,
+                    raycastLayers))
+            {
+                if (hit.transform.gameObject != chasingTarget.gameObject)
+                {
+                    currentState = AIState.SEARCHING;
+                    return;
+                }
+            }
+            else
+            {
+                CurrentState = AIState.SEARCHING;
+                return;
+            }
+            
             if (agent != null && chasingTarget != null)
             {
                 SetDestination(chasingTarget.transform.position);
@@ -206,6 +232,24 @@ namespace RobbieWagnerGames.AI
             }
             if (chasingTarget == null)
                 chasingTarget = StealthPlayer.Instance.GetComponent<AITarget>();
+        }
+        
+        // update search check if path you're following is incomplete, if you reach end then go idle but if you see player again go back to chase
+        protected virtual void UpdateSearchState()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + transform.forward * 2.9f, transform.forward, out hit, 60f, raycastLayers))
+            {
+                if (hit.transform.gameObject == chasingTarget.gameObject)
+                {
+                    ChaseNearestTarget();
+                }
+            }
+            
+            if (agent.destination == null || chasingTarget == null || Vector3.Distance(transform.position, chasingTarget.transform.position) < 3.0f) //AIManager.GetPathLength(agent.path) < .05f)
+            {
+                GoIdle();
+            }
         }
 
         protected virtual void OnCollisionEnter(Collision collision)

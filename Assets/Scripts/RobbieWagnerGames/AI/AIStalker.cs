@@ -19,6 +19,9 @@ namespace RobbieWagnerGames.AI
 
         [SerializeField] private float minStalkDistance = 75f;
         [SerializeField] private float maxStalkDistance = 200f;
+        [SerializeField] private float sightCheckCooldown = 0.5f;
+        
+        private float timer;
 
         protected override void Awake()
         {
@@ -68,16 +71,35 @@ namespace RobbieWagnerGames.AI
             alertSoundCooldown = null;
         }
 
-        protected void OnTriggerEnter(Collider other)
+        protected void OnTriggerStay(Collider other)
         {
-            if(other.CompareTag("Player"))
-                ChaseNearestTarget();
+            timer += Time.deltaTime;
+            if (timer > sightCheckCooldown)
+            {
+                timer = 0;
+                RaycastHit hit;
+                Debug.DrawRay(transform.position + transform.up * 2f, (transform.position - other.transform.position) * 200, Color.blue, 0.5f);
+                if (other.CompareTag("Player") && Physics.Raycast(transform.position + transform.up * 2f,
+                        transform.position - other.transform.position, out hit, 200f, raycastLayers))
+                {
+                    if (hit.transform.gameObject.CompareTag("Player"))
+                    {
+                        Debug.Log("Found Player: " + hit.transform.gameObject);
+                        ChaseNearestTarget();
+                    }
+                    else
+                    {
+                        Debug.Log("Found: " + hit.transform.gameObject);
+                    }
+                }
+            }
         }
 
         public override bool ChaseNearestTarget()
         {
             if(base.ChaseNearestTarget())
             {
+                chasingTarget.chasers.Add(this);
                 //if(alertSound != null && !alertSound.isPlaying)
                 //    alertSound.Play();
                 return true;
