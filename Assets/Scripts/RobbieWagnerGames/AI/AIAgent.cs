@@ -34,6 +34,9 @@ namespace RobbieWagnerGames.AI
         protected List<AITarget> currentTargets = new List<AITarget>(); // Use [HideInInspector] if needed
         public AITarget chasingTarget { get; protected set; }
 
+        [SerializeField] protected Animator animator;
+        [SerializeField] protected AudioSource footstepSounds;
+
         protected AIState currentState = AIState.NONE;
         public AIState CurrentState
         {
@@ -55,7 +58,33 @@ namespace RobbieWagnerGames.AI
 
         protected virtual void Awake()
         {
-            
+            OnStateChange += UpdateAnimator;
+        }
+
+        protected virtual void UpdateAnimator(AIState state)
+        {
+            if (state == AIState.MOVING || state == AIState.CHASING)
+            {
+                if(footstepSounds != null)
+                {
+                    if (footstepSounds.time != 0)
+                        footstepSounds.UnPause();
+                    else
+                        footstepSounds.Play();
+                }
+                
+                animator.SetBool("Walking", true);
+            }
+            else if (state == AIState.IDLE)
+            {
+                if (footstepSounds != null)
+                {
+                    if (footstepSounds.isPlaying)
+                        footstepSounds.Pause();
+                }
+                
+                animator.SetBool("Walking", false);
+            }
         }
 
         #region State Changing
