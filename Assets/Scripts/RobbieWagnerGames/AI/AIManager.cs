@@ -55,7 +55,10 @@ namespace RobbieWagnerGames.AI
         public void DestroyAllAgents()
         {
             foreach (AIAgent agent in activeAgents)
-                Destroy(agent.gameObject);
+            {
+                if(agent != null)
+                    Destroy(agent.gameObject);
+            }
             activeAgents.Clear();
         }
 

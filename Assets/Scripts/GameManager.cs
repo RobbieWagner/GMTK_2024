@@ -44,6 +44,8 @@ namespace GMTK2024
             {
                 if (currentStompingAnthill == value)
                     return;
+                //if(currentStompingAnthill != null)
+                //    PlayerPrefs.SetInt("anthillsSteppedOn", )
                 currentStompingAnthill = value;
                 OnChangeCurrentAnthill?.Invoke(currentStompingAnthill);
             }

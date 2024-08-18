@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 namespace RobbieWagnerGames.UI
 {
@@ -22,10 +23,24 @@ namespace RobbieWagnerGames.UI
         [SerializeField] private Canvas controls;
         [SerializeField] private Canvas credits;
 
+        [SerializeField] private AudioMixer audioMixer;
+
         protected override void Awake()
         {
             base.Awake();
             Cursor.lockState = CursorLockMode.None;
+
+            StartCoroutine(SetVolumes());
+        }
+
+        private IEnumerator SetVolumes()
+        {
+            yield return null;
+
+            audioMixer.SetFloat("Main", PlayerPrefs.GetFloat("Main", -5f));
+            audioMixer.SetFloat("Player", PlayerPrefs.GetFloat("Player", -5f));
+            audioMixer.SetFloat("UI", PlayerPrefs.GetFloat("UI", -5f));
+            audioMixer.SetFloat("Music", PlayerPrefs.GetFloat("Music", -5f));
         }
 
         protected override void OnEnable()

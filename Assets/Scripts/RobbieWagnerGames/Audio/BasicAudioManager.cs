@@ -28,7 +28,11 @@ namespace RobbieWagnerGames.Common
         Stinger_Dawn,
         Stinger_Dusk,
         
-        Death
+        Death,
+        AnthillDestroy,
+
+        UIButton,
+        UICancel
     }
 
     public class BasicAudioManager : MonoBehaviour
@@ -131,6 +135,12 @@ namespace RobbieWagnerGames.Common
             playingSource.Play();
             
             return playingSource;
+        }
+
+        public IEnumerator DelayAudioPlay(AudioSourceName audio, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            PlayAudioSource(audio);
         }
     }
 }

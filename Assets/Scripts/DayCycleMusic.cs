@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class DayCycleMusic : MonoBehaviour
 {
+    [SerializeField] private float dawnStingerLength = 15f;
+    [SerializeField] private float duskStingerLength = 15f;
+
     private void Awake()
     {
         DayNightCycle.Instance.OnDayCycleChange += TransitionMusic;
@@ -17,26 +20,29 @@ public class DayCycleMusic : MonoBehaviour
     {
         if (daytime == Daytime.DUSK)
         {
-            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Ambience_Night);
-            //Stop Day music
-            //Play stinger
             StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Ambience_Day));
-            
+            StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Music_Day));
+            StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Ambience_Night, 2, true));
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Stinger_Dusk);
+            StartCoroutine(BasicAudioManager.Instance.DelayAudioPlay(AudioSourceName.Music_Night, duskStingerLength));
         }
         else if (daytime == Daytime.DAWN)
         {
-            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Ambience_Day);
-            //Stop Night music
-            //Play stinger
             StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Ambience_Night));
+            StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Music_Night));
+            StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Ambience_Day, 2, true));
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Stinger_Dawn);
+            StartCoroutine(BasicAudioManager.Instance.DelayAudioPlay(AudioSourceName.Music_Day, dawnStingerLength));
         }    
         else if(daytime == Daytime.DAY)
         {
-            //play day music
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Music_Day, true);
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Ambience_Day, true);
         }
         else if (daytime == Daytime.NIGHT)
         {
-            //play night music
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Music_Night, true);
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Ambience_Night, true);
         }
     }
 }

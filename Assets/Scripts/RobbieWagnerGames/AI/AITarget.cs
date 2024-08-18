@@ -21,6 +21,14 @@ namespace RobbieWagnerGames.AI
         public virtual IEnumerator Die()
         {
             BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Death);
+            
+            BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Ambience_Night);
+            BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Ambience_Day);
+            BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Music_Night);
+            BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Music_Day);
+            BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Stinger_Dawn);
+            BasicAudioManager.Instance.StopAudioSource(AudioSourceName.Stinger_Dusk);
+
             yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn(0.1f));
             yield return new WaitForSeconds(3.5f);
             SceneManager.LoadScene("DeathScene");
