@@ -42,7 +42,7 @@ namespace RobbieWagnerGames.AI
 
             agent.SetTargets(initialTargets);
             activeAgents.Add(agent);
-            Debug.Log("Passed Position " + agent.transform.position);
+            //Debug.Log("Passed Position " + agent.transform.position);
             return agent;
         }
 

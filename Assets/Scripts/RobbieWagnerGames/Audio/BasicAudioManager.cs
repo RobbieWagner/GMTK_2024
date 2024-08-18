@@ -22,7 +22,13 @@ namespace RobbieWagnerGames.Common
         Flashlight,
         
         Ambience_Day,
-        Ambience_Night
+        Ambience_Night,
+        Music_Day,
+        Music_Night,
+        Stinger_Dawn,
+        Stinger_Dusk,
+        
+        Death
     }
 
     public class BasicAudioManager : MonoBehaviour
@@ -108,6 +114,23 @@ namespace RobbieWagnerGames.Common
             List<AudioSource> validSources = stopPlayingSounds ? audioSources : audioSources.Where(x => !x.isPlaying).ToList();
 
             validSources[UnityEngine.Random.Range(0, validSources.Count)].Play();
+        }
+
+        public static AudioSource PlayRandomSound(List<AudioSource> audioSources, bool stopPlayingSounds = false)
+        {
+            if (audioSources == null)
+            {
+                Debug.LogWarning("Could not play random audio source: No Audio Sources found!");
+                return null;
+            }
+
+            List<AudioSource> validSources = stopPlayingSounds ? audioSources : audioSources.Where(x => !x.isPlaying).ToList();
+
+            AudioSource playingSource = validSources[UnityEngine.Random.Range(0, validSources.Count)];
+
+            playingSource.Play();
+            
+            return playingSource;
         }
     }
 }

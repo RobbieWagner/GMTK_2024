@@ -1,3 +1,4 @@
+using RobbieWagnerGames.Common;
 using RobbieWagnerGames.Minijam164;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,15 +9,20 @@ namespace RobbieWagnerGames.AI
 {
     public class AITarget : MonoBehaviour
     {
+        private Coroutine deathCo;
+
         public virtual void OnCaught(AIAgent agent)
         {
             Debug.Log($"{agent.gameObject.name} caught {gameObject.name}");
-            StartCoroutine(Die());
+            if(deathCo == null)
+                deathCo = StartCoroutine(Die());
         }
 
         public virtual IEnumerator Die()
         {
-            yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn(2));
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Death);
+            yield return StartCoroutine(ScreenCover.Instance.FadeCoverIn(0.1f));
+            yield return new WaitForSeconds(3.5f);
             SceneManager.LoadScene("DeathScene");
         }
     }

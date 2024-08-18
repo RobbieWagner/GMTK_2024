@@ -207,9 +207,8 @@ namespace RobbieWagnerGames.FirstPerson
             Vector3 movementVector = transform.right * inputVector.x + transform.forward * inputVector.z + Vector3.up * inputVector.y;
 
             float speed = IsRunning ? runSpeed : defaultSpeed;
-
-            if(IsMoving)
-                UpdateStamina();
+             
+            UpdateStamina();
 
             if (characterController.enabled)
                 characterController.Move(movementVector * speed * Time.deltaTime);
@@ -218,7 +217,7 @@ namespace RobbieWagnerGames.FirstPerson
 
         private void UpdateStamina()
         {
-            if(IsRunning)
+            if(IsMoving && IsRunning)
             { 
                 CurStamina -= Time.deltaTime;
                 if(CurStamina <= 0)

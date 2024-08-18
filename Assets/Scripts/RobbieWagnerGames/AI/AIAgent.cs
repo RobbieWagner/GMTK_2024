@@ -61,22 +61,29 @@ namespace RobbieWagnerGames.AI
         #region State Changing
         public virtual void GoIdle()
         {
-            agent.isStopped = true;
-            CurrentState = AIState.IDLE;
+            if (agent != null)
+            {
+                agent.isStopped = true;
+                CurrentState = AIState.IDLE;
+            }
         }
 
         public virtual bool MoveAgent(Vector3 destination)
         {
-            CurrentState = AIState.MOVING;
-            bool success = SetDestination(destination);
-
-            if (!success)
+            if (agent != null)
             {
-                GoIdle();
-                Debug.LogWarning("failed to move agent");
-            }
+                CurrentState = AIState.MOVING;
+                bool success = SetDestination(destination);
 
-            return success;
+                if (!success)
+                {
+                    GoIdle();
+                    Debug.LogWarning("failed to move agent");
+                }
+
+                return success;
+            }
+            return false;
         }
 
         public virtual bool ChaseNearestTarget()
@@ -150,18 +157,26 @@ namespace RobbieWagnerGames.AI
 
         protected virtual void UpdateMovingState()
         {
-            if (agent.destination == null || AIManager.GetPathLength(agent.path) < .05f)
-                GoIdle();
+            if (agent != null)
+            {
+                if (agent.destination == null || AIManager.GetPathLength(agent.path) < .05f)
+                    GoIdle();
+            }
         }
 
         protected virtual void UpdateChaseState()
         {
-            SetDestination(chasingTarget.transform.position);
-
-            if (agent.destination == null || chasingTarget == null || Vector3.Distance(transform.position, chasingTarget.transform.position) < 0.01f) //AIManager.GetPathLength(agent.path) < .05f)
+            if (agent != null && chasingTarget != null)
             {
-                OnReachTarget(chasingTarget);
+                SetDestination(chasingTarget.transform.position);
+
+                if (agent.destination == null || chasingTarget == null || Vector3.Distance(transform.position, chasingTarget.transform.position) < 3.0f) //AIManager.GetPathLength(agent.path) < .05f)
+                {
+                    OnReachTarget(chasingTarget);
+                }
             }
+            if (chasingTarget == null)
+                chasingTarget = StealthPlayer.Instance.GetComponent<AITarget>();
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
@@ -187,8 +202,12 @@ namespace RobbieWagnerGames.AI
 
         public virtual bool SetDestination(Vector3 destination)
         {
-            agent.isStopped = false;
-            return agent.SetDestination(destination);
+            if (agent != null)
+            {
+                agent.isStopped = false;
+                return agent.SetDestination(destination);
+            }
+            return false;
         }
 
         public virtual void MoveToRandomSpot(float range = 100f)
