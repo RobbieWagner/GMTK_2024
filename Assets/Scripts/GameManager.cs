@@ -162,7 +162,7 @@ namespace GMTK2024
         {
             foreach (Anthill anthill in activeAnthills)
             {
-                Destroy(anthill);
+                StartCoroutine(anthill.DestroyAnthill());
             }
             activeAnthills.Clear();
         }

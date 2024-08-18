@@ -1,10 +1,12 @@
 using AYellowpaper.SerializedCollections;
 using DG.Tweening;
 using GMTK2024;
+using RobbieWagnerGames.AI;
 using RobbieWagnerGames.FirstPerson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +36,12 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Image staminaFillImage;
     [SerializeField] private Color normalStaminaColor;
     [SerializeField] private Color badStaminaColor;
+
+    [SerializeField] private Image visibilityIndicator;
+    [SerializeField] private Color offColor;
+    [SerializeField] private Color hiddenColor;
+    [SerializeField] private Color visibleColor;
+    [SerializeField] private Color revealedColor;
 
     public static GameUI Instance { get; private set; }
     private void Awake()
@@ -106,6 +114,29 @@ public class GameUI : MonoBehaviour
             staminaSlider.gameObject.SetActive(false);
         else
             staminaSlider.gameObject.SetActive(true);
+
+        UpdateVisibilityTracker();
+    }
+
+    private void UpdateVisibilityTracker()
+    {
+        StealthPlayer player = StealthPlayer.Instance;
+        AITarget playerTarget = SimpleFirstPersonPlayerMovement.Instance.GetComponent<AITarget>();
+
+        if(player != null) 
+        {
+            if (DayNightCycle.Instance.Daytime != Daytime.NIGHT)
+                visibilityIndicator.color = offColor;
+            else if (playerTarget.chasers != null && playerTarget.chasers.Any())
+                visibilityIndicator.color = revealedColor;
+            else if(player.IsRevealed)
+                visibilityIndicator.color = revealedColor;
+            else if(!player.IsRevealed && !player.IsHiding)
+                visibilityIndicator.color = visibleColor;
+            else if(player.IsHiding)
+                visibilityIndicator.color = hiddenColor;
+        }
+
     }
 
     private void UpdateStaminaSlider(float floatVal)

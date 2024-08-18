@@ -11,6 +11,8 @@ namespace RobbieWagnerGames.AI
     {
         private Coroutine deathCo;
 
+        [HideInInspector] public List<AIAgent> chasers = new List<AIAgent>();
+
         public virtual void OnCaught(AIAgent agent)
         {
             Debug.Log($"{agent.gameObject.name} caught {gameObject.name}");

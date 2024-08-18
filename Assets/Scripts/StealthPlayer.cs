@@ -1,6 +1,8 @@
+using RobbieWagnerGames.AI;
 using RobbieWagnerGames.FirstPerson;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StealthPlayer : MonoBehaviour
@@ -9,6 +11,8 @@ public class StealthPlayer : MonoBehaviour
     [SerializeField] private float obscuredRadius;
     [SerializeField] private float defaultRadius;
     [SerializeField] private float revealedRadius;
+
+    private AITarget aiTarget;
 
     private bool isHiding = false;
     public bool IsHiding
@@ -28,6 +32,22 @@ public class StealthPlayer : MonoBehaviour
     public delegate void HideDelegate(bool hiding);
     public event HideDelegate OnToggleHideState;
 
+    private bool isRevealed = false;
+    public bool IsRevealed
+    {
+        get
+        {
+            return isRevealed;
+        }
+        set
+        {
+            if (isRevealed == value)
+                return;
+            isRevealed = value;
+            OnToggleRevealState?.Invoke(isRevealed);
+        }
+    }
+    public event HideDelegate OnToggleRevealState;
     public static StealthPlayer Instance { get; private set; }
 
     private void Awake()
@@ -41,13 +61,30 @@ public class StealthPlayer : MonoBehaviour
             Instance = this;
         }
 
-        OnToggleHideState += ToggleRadius;
         ResetPlayer();
+        aiTarget = GetComponent<AITarget>();
     }
 
-    public void ToggleRadius(bool on)
+    private void Update()
     {
-        radiusOfDetection.enabled = on;
+        UpdateRadius();
+    }
+
+    public void UpdateRadius()
+    {
+        if (DayNightCycle.Instance.Daytime != Daytime.NIGHT)
+            radiusOfDetection.radius = obscuredRadius;
+        else if(aiTarget != null)
+        {
+            if (aiTarget.chasers != null && aiTarget.chasers.Any())
+                radiusOfDetection.radius = revealedRadius;
+            else if (IsRevealed)
+                radiusOfDetection.radius = revealedRadius;
+            else if (IsRevealed && IsHiding)
+                radiusOfDetection.radius = defaultRadius;
+            else if (IsHiding)
+                radiusOfDetection.radius = obscuredRadius;
+        }
     }
 
     public void ObscurePlayer()

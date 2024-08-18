@@ -78,11 +78,12 @@ public class Anthill : MonoBehaviour
         }
     }
 
-    private IEnumerator DestroyAnthill()
+    public IEnumerator DestroyAnthill()
     {
         if (GameManager.Instance.CurrentStompingAnthill == this)
             GameManager.Instance.CurrentStompingAnthill = null;
-        BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.AnthillDestroy);
+        if(antsSquashed >= maxAnts)
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.AnthillDestroy);
 
         foreach (AIAgent agent in spawnedAgents)
             Destroy(agent.gameObject);
