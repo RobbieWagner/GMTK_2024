@@ -23,6 +23,8 @@ namespace RobbieWagnerGames.AI
         
         private float timer;
 
+        [HideInInspector] public bool isInPlayerRange;
+
         protected override void Awake()
         {
             base.Awake();
@@ -71,25 +73,59 @@ namespace RobbieWagnerGames.AI
             alertSoundCooldown = null;
         }
 
+        protected void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                isInPlayerRange = true;
+        }
+
+        protected virtual void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+                isInPlayerRange = false;
+        }
+
+        protected override void UpdateSearchState()
+        {
+            base.UpdateSearchState();
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + transform.up * 2f,
+                    chasingTarget.transform.position - transform.position, out hit, 200f, raycastLayers))
+            {
+                if (hit.collider.CompareTag("Player") || isInPlayerRange)
+                {
+                    ChaseNearestTarget();
+                }
+            }
+
+            if (agent.destination == null || chasingTarget == null || AIManager.GetPathLength(agent.path) < .05f)
+            {
+                GoIdle();
+            }
+        }
+
         protected void OnTriggerStay(Collider other)
         {
-            timer += Time.deltaTime;
-            if (timer > sightCheckCooldown)
+            if (other.CompareTag("Player"))
             {
-                timer = 0;
-                RaycastHit hit;
-                Debug.DrawRay(transform.position + transform.up * 2f, (other.transform.position - transform.position).normalized * 200, Color.blue, 0.5f);
-                if (other.CompareTag("Player") && Physics.Raycast(transform.position + transform.up * 2f,
-                        other.transform.position - transform.position, out hit, 200f, raycastLayers))
+                timer += Time.deltaTime;
+                if (timer > sightCheckCooldown)
                 {
-                    if (hit.transform.gameObject.CompareTag("Player") && CurrentState != AIState.CHASING)
+                    RaycastHit hit;
+                    //Debug.DrawRay(transform.position - transform.up * 2f, (other.transform.position - transform.position).normalized * 60, Color.blue, 0.5f);
+                    if (Physics.Raycast(transform.position - transform.up * 2f, other.transform.position - transform.position, out hit, 60, raycastLayers))
                     {
-                        Debug.Log("Found Player: " + hit.transform.gameObject);
-                        ChaseNearestTarget();
-                    }
-                    else
-                    {
-                        Debug.Log("Found: " + hit.transform.gameObject);
+                        if (hit.transform.gameObject.CompareTag("Player") && CurrentState != AIState.CHASING)
+                        {
+                            timer = 0;
+                            //Debug.Log("Found Player: " + hit.transform.gameObject);
+                            ChaseNearestTarget();
+                        }
+                        else
+                        {
+                            //Debug.Log("Found: " + hit.transform.gameObject);
+                        }
                     }
                 }
             }
@@ -111,8 +147,8 @@ namespace RobbieWagnerGames.AI
             base.UpdateChaseState();
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + transform.up * 2f,
-                    chasingTarget.transform.position - transform.position, out hit, 200f, raycastLayers))
+            if (Physics.Raycast(transform.position - transform.up * 2f,
+                    chasingTarget.transform.position - transform.position, out hit, 60, raycastLayers))
             {
                 if (hit.transform.gameObject != chasingTarget.gameObject)
                 {
