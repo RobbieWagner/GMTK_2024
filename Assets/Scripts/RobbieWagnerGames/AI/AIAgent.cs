@@ -205,22 +205,6 @@ namespace RobbieWagnerGames.AI
 
         protected virtual void UpdateChaseState()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position + transform.forward * 2.9f, transform.forward, out hit, 60f,
-                    raycastLayers))
-            {
-                if (hit.transform.gameObject != chasingTarget.gameObject)
-                {
-                    currentState = AIState.SEARCHING;
-                    return;
-                }
-            }
-            else
-            {
-                CurrentState = AIState.SEARCHING;
-                return;
-            }
-            
             if (agent != null && chasingTarget != null)
             {
                 SetDestination(chasingTarget.transform.position);
@@ -238,7 +222,8 @@ namespace RobbieWagnerGames.AI
         protected virtual void UpdateSearchState()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + transform.forward * 2.9f, transform.forward, out hit, 60f, raycastLayers))
+            if (Physics.Raycast(transform.position + transform.up * 2f,
+                    chasingTarget.transform.position - transform.position, out hit, 200f, raycastLayers))
             {
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -246,7 +231,7 @@ namespace RobbieWagnerGames.AI
                 }
             }
             
-            if (agent.destination == null || chasingTarget == null || Vector3.Distance(transform.position, chasingTarget.transform.position) < 3.0f) //AIManager.GetPathLength(agent.path) < .05f)
+            if (agent.destination == null || chasingTarget == null || AIManager.GetPathLength(agent.path) < .05f) 
             {
                 GoIdle();
             }

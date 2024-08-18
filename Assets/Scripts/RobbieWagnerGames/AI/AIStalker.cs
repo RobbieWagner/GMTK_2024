@@ -78,9 +78,9 @@ namespace RobbieWagnerGames.AI
             {
                 timer = 0;
                 RaycastHit hit;
-                Debug.DrawRay(transform.position + transform.up * 2f, (transform.position - other.transform.position).normalized * 200, Color.blue, 0.5f);
+                Debug.DrawRay(transform.position + transform.up * 2f, (other.transform.position - transform.position).normalized * 200, Color.blue, 0.5f);
                 if (other.CompareTag("Player") && Physics.Raycast(transform.position + transform.up * 2f,
-                        transform.position - other.transform.position, out hit, 200f, raycastLayers))
+                        other.transform.position - transform.position, out hit, 200f, raycastLayers))
                 {
                     if (hit.transform.gameObject.CompareTag("Player") && CurrentState != AIState.CHASING)
                     {
@@ -110,8 +110,19 @@ namespace RobbieWagnerGames.AI
         {
             base.UpdateChaseState();
 
-            if(Vector3.Distance(chasingTarget.transform.position, transform.position) > maxChaseDistance)
-                GoIdle();
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + transform.up * 2f,
+                    chasingTarget.transform.position - transform.position, out hit, 200f, raycastLayers))
+            {
+                if (hit.transform.gameObject != chasingTarget.gameObject)
+                {
+                    currentState = AIState.SEARCHING;
+                }
+            }
+            else
+            {
+                CurrentState = AIState.SEARCHING;
+            }
         }
 
         public override void MoveToRandomSpot(float range = 100f)
