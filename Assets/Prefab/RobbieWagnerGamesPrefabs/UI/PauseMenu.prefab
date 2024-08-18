@@ -226,8 +226,15 @@ MonoBehaviour:
   settingsButton: {fileID: 0}
   controlsButton: {fileID: 0}
   saveButton: {fileID: 0}
+  mainMenuButton: {fileID: 0}
   quitButton: {fileID: 0}
   settings: {fileID: 0}
   controls: {fileID: 0}
   canPause: 0
   paused: 0
+  audioMixer: {fileID: 24100000, guid: 54ee330305363d8429bc1d5eb1a9b9bf, type: 2}
+  volumeSliders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

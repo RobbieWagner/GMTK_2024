@@ -62,7 +62,6 @@ namespace RobbieWagnerGames.UI
 
         protected override void OnEnable()
         {
-            Debug.Log("hi");
             BuildMenu();
             base.OnEnable();
             ActiveTab = 0;

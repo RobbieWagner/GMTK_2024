@@ -15,6 +15,8 @@ namespace RobbieWagnerGames.UI
         [SerializeField] private string exposedParameterName;
         [HideInInspector] private AudioMixer audioMixer;
 
+        [SerializeField] private PauseMenu pauseMenu;
+
         private void Awake()
         {
             volumeSlider.onValueChanged.AddListener(AdjustVolume);
@@ -37,7 +39,7 @@ namespace RobbieWagnerGames.UI
         public void LoadVolume()
         {
             volume = PlayerPrefs.GetFloat(exposedParameterName, defaultValue);
-            if (volume < -40) volume = -80;
+            if (pauseMenu == null && volume < -40) volume = -80;
                 audioMixer.SetFloat(exposedParameterName, volume);
         }
     }

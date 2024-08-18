@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 namespace RobbieWagnerGames.UI
 {
@@ -26,6 +27,10 @@ namespace RobbieWagnerGames.UI
 
         [HideInInspector] public bool canPause;
         [HideInInspector] public bool paused;
+
+        [SerializeField] private AudioMixer audioMixer;
+
+        [SerializeField] private List<VolumeSlider> volumeSliders;
 
         public static PauseMenu Instance {get; private set;}
 
@@ -69,6 +74,7 @@ namespace RobbieWagnerGames.UI
             thisCanvas.enabled = true;
 
             OnGamePaused?.Invoke();
+            audioMixer.SetFloat("Main", -80f);
         }
 
         public delegate void OnGamePausedDelegate();
@@ -88,6 +94,9 @@ namespace RobbieWagnerGames.UI
                         playerInput.actions.FindActionMap(actionMapName).Enable();
                     } 
                 }
+
+                foreach (VolumeSlider slider in volumeSliders)
+                    slider.LoadVolume(true);
 
                 OnGameUnpaused?.Invoke();
             }
