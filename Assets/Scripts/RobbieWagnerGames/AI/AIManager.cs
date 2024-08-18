@@ -34,6 +34,7 @@ namespace RobbieWagnerGames.AI
         {
             AIAgent agent = Instantiate(agentPrefab);
             agent.transform.position = startingPos;
+            Debug.Log(startingPos + " vs " + agent.transform.position);
             agent.SetTargets(initialTargets);
             activeAgents.Add(agent);
             return agent;

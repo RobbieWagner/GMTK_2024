@@ -114,10 +114,7 @@ namespace GMTK2024
 
         private void TriggerNight()
         {
-            foreach (Vector3 spawnLocation in chaserSpawnLocations)
-                AIManager.Instance.AddAgentToScene(stalkerPrefab, spawnLocation, player);
-
-            AIManager.Instance.InitializeAI();
+            SpawnAnts();
         }
 
         private void SpawnAnthills()
@@ -147,6 +144,25 @@ namespace GMTK2024
                 Destroy(anthill);
             }
             activeAnthills.Clear();
+        }
+
+        private void SpawnAnts()
+        {
+            // get valid positions relative to player
+            List<Vector3> validSpawns = allSpawnLocations.Where(x =>
+                Vector3.Distance(player[0].transform.position, x) > playerExclusionRange).ToList();
+            
+            // get valid positions relative to other ants - ?
+            
+            // pick 5 random from remaining list
+            validSpawns = validSpawns.OrderBy(x => Guid.NewGuid()).Take(5).ToList();
+
+            // spawn ants at each point
+            foreach (Vector3 spawnPos in validSpawns)
+            {
+                AIManager.Instance.AddAgentToScene(stalkerPrefab, spawnPos, player);
+            }
+            AIManager.Instance.InitializeAI();
         }
     }
 }
