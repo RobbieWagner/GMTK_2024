@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7274157971576988484}
   - component: {fileID: 2046456252051163276}
   - component: {fileID: 4476480365571914939}
+  - component: {fileID: 716098359778331659}
   m_Layer: 3
   m_Name: TallRock2_low
   m_TagString: Untagged
@@ -127,3 +128,19 @@ CapsuleCollider:
   m_Height: 4.454044
   m_Direction: 1
   m_Center: {x: -0.000000059604645, y: 1.0881526, z: 0}
+--- !u!208 &716098359778331659
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9219990294383264401}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.402484, y: 2.227022, z: 1.402484}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.00000005960464, y: 1.088153, z: 0}
+  m_TimeToStationary: 0.5
