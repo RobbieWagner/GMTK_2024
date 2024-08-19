@@ -30,7 +30,7 @@ public class TutorialUI : MonoBehaviour
     {
         if (!hasDisplayedAntTutorial && anthill != null)
         {
-            StartCoroutine(DisplayTutorialText("Stomp On Ants", new Vector2(-700, 100), new Vector2(-415, 100)));
+            StartCoroutine(DisplayTutorialText("Stomp On Ants", new Vector2(-550, 85), new Vector2(-320, 85)));
             hasDisplayedAntTutorial = true;
         }
     }
@@ -39,7 +39,7 @@ public class TutorialUI : MonoBehaviour
     {
         if (!hasDisplayedHideTutorial && daytime == Daytime.NIGHT)
         {
-            StartCoroutine(DisplayTutorialText("Run Or Hide From Ants", new Vector2(700, -125), new Vector2(415, -125)));
+            StartCoroutine(DisplayTutorialText("Run Or Hide From Them", new Vector2(550, -100), new Vector2(320, -100)));
             hasDisplayedHideTutorial = true;
         }
     }
