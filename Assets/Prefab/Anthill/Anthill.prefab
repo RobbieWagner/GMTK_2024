@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2907686899495670469}
   - component: {fileID: 1143032519203798692}
   - component: {fileID: -638221844278217750}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Anthill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,6 +194,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Anthill_low
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9aecba15a11bde744b8775bec451d61a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

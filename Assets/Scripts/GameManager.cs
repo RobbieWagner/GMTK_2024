@@ -205,7 +205,7 @@ namespace GMTK2024
             // get valid positions relative to other ants - ?
             
             // pick 5 random from remaining list
-            validSpawns = validSpawns.OrderBy(x => Guid.NewGuid()).Take(numberOfAnts).ToList();
+            validSpawns = validSpawns.OrderBy(x => Guid.NewGuid()).Take(numberOfAnts + 1).ToList();
 
             // spawn ants at each point
             foreach (Vector3 spawnPos in validSpawns)
