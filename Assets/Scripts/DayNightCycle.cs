@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,6 +73,8 @@ public class DayNightCycle : MonoBehaviour
     private Transform sunlight;
     private Transform moonlight;
 
+    [SerializeField] private Light sunlightLight;
+
     public static DayNightCycle Instance { get; private set; }
 
     private void Awake()
@@ -91,6 +94,32 @@ public class DayNightCycle : MonoBehaviour
 
         sunlight = transform.Find("Sunlight");
         moonlight = transform.Find("Moonlight");
+
+        OnDayCycleChange += UpdateSun;
+    }
+
+    private void UpdateSun(Daytime daytime)
+    {
+        switch (daytime) 
+        {
+            case Daytime.DAWN:
+                StartCoroutine(FadeLight(true));
+                break;
+            case Daytime.DUSK:
+                StartCoroutine(FadeLight(false));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private IEnumerator FadeLight(bool fadeIn)
+    {
+        if (fadeIn)
+            yield return sunlightLight.DOIntensity(1, 15).WaitForCompletion();
+        else
+            yield return sunlightLight.DOIntensity(0, 15).WaitForCompletion();
+
     }
 
     private void Update()

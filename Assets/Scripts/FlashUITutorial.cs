@@ -18,8 +18,8 @@ public class FlashUITutorial : MonoBehaviour
 
     private IEnumerator FlashText()
     {
-        yield return flashText.rectTransform.DOAnchorPos(Vector2.zero, 1).WaitForCompletion();
+        yield return flashText.rectTransform.DOAnchorPos(Vector2.zero, 2).WaitForCompletion();
         yield return new WaitForSeconds(2);
-        yield return flashText.rectTransform.DOAnchorPos(new Vector2(0, -500), 1).WaitForCompletion();
+        yield return flashText.rectTransform.DOAnchorPos(new Vector2(0, -1000), 2).WaitForCompletion();
     }
 }
