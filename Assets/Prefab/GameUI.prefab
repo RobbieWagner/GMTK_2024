@@ -2429,7 +2429,7 @@ MonoBehaviour:
   badStaminaColor: {r: 0.78431374, g: 0, b: 0, a: 1}
   visibilityIndicator: {fileID: 5470958640740077923}
   offColor: {r: 1, g: 1, b: 1, a: 0}
-  hiddenColor: {r: 1, g: 1, b: 1, a: 0.09803922}
-  visibleColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  hiddenColor: {r: 1, g: 1, b: 1, a: 0.019607844}
+  visibleColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.39215687}
   revealedColor: {r: 1, g: 1, b: 1, a: 1}
   highscoreText: {fileID: 8410250714933331004}

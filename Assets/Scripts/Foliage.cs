@@ -13,6 +13,6 @@ public class Foliage : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-            StealthPlayer.Instance.ResetPlayer();
+            StealthPlayer.Instance.IsHiding = false;
     }
 }

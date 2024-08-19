@@ -1,5 +1,6 @@
 using RobbieWagnerGames.AI;
 using RobbieWagnerGames.FirstPerson;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,8 @@ public class StealthPlayer : MonoBehaviour
 
         ResetPlayer();
         aiTarget = GetComponent<AITarget>();
+
+        SimpleFirstPersonPlayerMovement.Instance.ToggleRun += ToggleReveal;
     }
 
     private void Update()
@@ -101,6 +104,11 @@ public class StealthPlayer : MonoBehaviour
     public void RevealPlayer()
     {
         IsRevealed = true;
+    }
+
+    private void ToggleReveal(bool on)
+    {
+        IsRevealed = on;
     }
 
 }
