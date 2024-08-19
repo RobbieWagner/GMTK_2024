@@ -90,8 +90,8 @@ namespace RobbieWagnerGames.AI
             base.UpdateSearchState();
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + transform.up * 2f,
-                    chasingTarget.transform.position - transform.position, out hit, 200f, raycastLayers))
+            if (Physics.Raycast(transform.position + transform.up,
+                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 200f, raycastLayers))
             {
                 if (hit.collider.CompareTag("Player") || isInPlayerRange)
                 {
@@ -113,8 +113,8 @@ namespace RobbieWagnerGames.AI
                 if (timer > sightCheckCooldown)
                 {
                     RaycastHit hit;
-                    //Debug.DrawRay(transform.position - transform.up * 2f, (other.transform.position - transform.position).normalized * 60, Color.blue, 0.5f);
-                    if (Physics.Raycast(transform.position - transform.up * 2f, other.transform.position - transform.position, out hit, 60, raycastLayers))
+                    Debug.DrawRay(transform.position + transform.up, (other.transform.position - (transform.position + transform.up)).normalized * 60, Color.blue, 0.5f);
+                    if (Physics.Raycast(transform.position + transform.up, other.transform.position - (transform.position + transform.up), out hit, 60, raycastLayers))
                     {
                         if (hit.transform.gameObject.CompareTag("Player") && CurrentState != AIState.CHASING)
                         {
@@ -147,8 +147,8 @@ namespace RobbieWagnerGames.AI
             base.UpdateChaseState();
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position - transform.up * 2f,
-                    chasingTarget.transform.position - transform.position, out hit, 60, raycastLayers))
+            if (Physics.Raycast(transform.position + transform.up,
+                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 60, raycastLayers))
             {
                 if (hit.transform.gameObject != chasingTarget.gameObject)
                 {

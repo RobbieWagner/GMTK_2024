@@ -43,6 +43,8 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Color visibleColor;
     [SerializeField] private Color revealedColor;
 
+    //[SerializeField] public TextMeshProUGUI highscoreText;
+
     public static GameUI Instance { get; private set; }
     private void Awake()
     {

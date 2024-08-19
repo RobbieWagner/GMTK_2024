@@ -31,7 +31,8 @@ namespace GMTK2024
                 Instance = this;
             }
 
-
+            //if (GameUI.Instance != null)
+            //    GameUI.Instance.highscoreText.text = GetStat(GameStatistic.Highscore).ToString();
         }
 
         public Dictionary<string, int> GetStats()

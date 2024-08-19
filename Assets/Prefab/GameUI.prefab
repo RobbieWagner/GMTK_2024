@@ -1962,3 +1962,4 @@ MonoBehaviour:
   hiddenColor: {r: 1, g: 1, b: 1, a: 0.19607843}
   visibleColor: {r: 1, g: 1, b: 1, a: 0.5882353}
   revealedColor: {r: 1, g: 1, b: 1, a: 1}
+  highscoreText: {fileID: 0}

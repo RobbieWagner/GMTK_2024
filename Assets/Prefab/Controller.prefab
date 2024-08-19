@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e8dc05a1bfb624a91cacd77d3bd592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStamina: 5
+  maxStamina: 10
   defaultSpeed: 5
   runSpeed: 10
   characterController: {fileID: 6905568635139074802}
@@ -455,6 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fad11b184f63a740ad5c8e73f56d862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chasers: []
 --- !u!114 &8758195280625331921
 MonoBehaviour:
   m_ObjectHideFlags: 0
