@@ -19,9 +19,13 @@ public class PauseMenuWatch : MonoBehaviour
 
     private void TogglePauseMenu(InputAction.CallbackContext context)
     {
-        if (pauseMenu.enabled)
+        if (pauseMenu.enabled && pauseMenu.thisCanvas.enabled)
+        {
             pauseMenu.paused = false;
-        pauseMenu.enabled = !pauseMenu.enabled;
+            pauseMenu.enabled = false;
+        }
+        else if(!pauseMenu.enabled)
+            pauseMenu.enabled = true;
     }
 
     private void OnDestroy()

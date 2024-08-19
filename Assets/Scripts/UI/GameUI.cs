@@ -30,6 +30,9 @@ public class GameUI : MonoBehaviour
     private Coroutine transitionCo;
     private bool initialized = false;
 
+    [SerializeField] private TextMeshProUGUI dayCountText;
+    [SerializeField] private TextMeshProUGUI dayCycleText;
+
     [Header("Stamina")]
     [SerializeField] private Slider staminaSlider;
     [SerializeField] private Image staminaSliderImage;
@@ -43,7 +46,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Color visibleColor;
     [SerializeField] private Color revealedColor;
 
-    //[SerializeField] public TextMeshProUGUI highscoreText;
+    [SerializeField] public TextMeshProUGUI highscoreText;
 
     public static GameUI Instance { get; private set; }
     private void Awake()
@@ -75,6 +78,19 @@ public class GameUI : MonoBehaviour
         scoreGainSlider.gameObject.SetActive(false);
 
         GameManager.Instance.OnChangeCurrentAnthill += UpdateCurrentAnthill;
+        StartCoroutine(LoadHighscore());
+
+        GameManager.Instance.OnDayChange += UpdateDayUI;
+        DayNightCycle.Instance.OnDayCycleChange += UpdateCycleUI;
+
+        dayCountText.text = "1";
+        dayCycleText.text = DayNightCycle.Instance.Daytime.ToString();
+    }
+
+    private IEnumerator LoadHighscore()
+    {
+        yield return null;
+        highscoreText.text = $"Highscore: {GameStatTracker.Instance.GetStat(GameStatistic.Highscore)}";
     }
 
     private void UpdateCurrentAnthill(Anthill ah)
@@ -196,11 +212,13 @@ public class GameUI : MonoBehaviour
 
     private IEnumerator UpdateScoreTextCo()
     {
-
+        int highscore = GameStatTracker.Instance.GetStat(GameStatistic.Highscore);
         while (displayedScore < GameManager.Instance.CurrentScore)
         {
             displayedScore++;
             scoreText.text = displayedScore.ToString();
+            if (GameManager.Instance.CurrentScore > highscore)
+                highscoreText.text = $"Highscore: {displayedScore}";
             yield return new WaitForSeconds(.05f);
         }
         scoreTextUpdateCo = null;
@@ -215,4 +233,15 @@ public class GameUI : MonoBehaviour
             yield return image.DOColor(initialColor, flashTime).WaitForCompletion();
         }
     }
+
+    private void UpdateCycleUI(Daytime daytime)
+    {
+        dayCycleText.text = daytime.ToString();
+    }
+
+    private void UpdateDayUI(int curDay)
+    {
+        dayCountText.text = curDay.ToString();
+    }
+
 }

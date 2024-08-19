@@ -152,7 +152,7 @@ namespace RobbieWagnerGames.UI
             Application.Quit();
         }
 
-        protected override void ToggleButtonInteractibility(bool toggleOn)
+        public override void ToggleButtonInteractibility(bool toggleOn)
         {
             base.ToggleButtonInteractibility(toggleOn);
 
@@ -175,9 +175,18 @@ namespace RobbieWagnerGames.UI
 
         protected override IEnumerator SwapCanvases(Canvas active, Canvas next)
         {
-            yield return StartCoroutine(base.SwapCanvases(active, next));
+            yield return new WaitForSecondsRealtime(.1f);
 
-            StopCoroutine(SwapCanvases(active, next));
+            Menu activeMenu = active.gameObject.GetComponent<Menu>();
+            Menu nextMenu = next.gameObject.GetComponent<Menu>();
+
+            active.enabled = false;
+            next.enabled = true;
+
+            nextMenu.enabled = true;
+            nextMenu.ToggleButtonInteractibility(true);
+            nextMenu.lastCanvas = activeMenu.thisCanvas;
+            //activeMenu.enabled = false;
         }
     }
 }

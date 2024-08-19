@@ -99,7 +99,7 @@ namespace RobbieWagnerGames.UI
             Application.Quit();
         }
 
-        protected override void ToggleButtonInteractibility(bool toggleOn)
+        public override void ToggleButtonInteractibility(bool toggleOn)
         {
             base.ToggleButtonInteractibility(toggleOn);
 

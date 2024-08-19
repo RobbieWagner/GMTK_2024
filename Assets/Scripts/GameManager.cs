@@ -36,6 +36,9 @@ namespace GMTK2024
 
         private List<AIAgent> currentAntPositions = new List<AIAgent>();
 
+        [Header("Player")]
+        [SerializeField] private List<AITarget> player;
+
         private Anthill currentStompingAnthill = null;
         [HideInInspector] public Anthill CurrentStompingAnthill
         {
@@ -74,8 +77,23 @@ namespace GMTK2024
         public delegate void ScoreDelegate(int score);
         public event ScoreDelegate OnScoreChange;
 
-        [Header("Player")]
-        [SerializeField] private List<AITarget> player;
+        private int day = 1;
+        public int Day
+        {
+            get
+            {
+                return day;
+            }
+            set
+            {
+                if (day == value)
+                    return;
+                day = value;
+                OnDayChange?.Invoke(day);
+            }
+        }
+        public delegate void DayDelegate(int curDay);
+        public event DayDelegate OnDayChange;
 
         public static GameManager Instance { get; private set; }
         private void Awake()
@@ -126,6 +144,7 @@ namespace GMTK2024
             }
             currentAntPositions.Clear();
             AIManager.Instance.DestroyAllAgents();
+            Day++;
         }
 
         private void TriggerDay()

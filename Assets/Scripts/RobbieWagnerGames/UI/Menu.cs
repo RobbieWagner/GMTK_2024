@@ -35,7 +35,7 @@ namespace RobbieWagnerGames.UI
         if(backButton != null) backButton.onClick.RemoveListener(BackToLastMenu);
         }
 
-        protected virtual void ToggleButtonInteractibility(bool toggleOn)
+        public virtual void ToggleButtonInteractibility(bool toggleOn)
         {
             if(backButton != null) backButton.interactable = toggleOn;
         }
