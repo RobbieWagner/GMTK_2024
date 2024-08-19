@@ -30,6 +30,7 @@ namespace GMTK2024
         [SerializeField] private GameObject spawnPointsParent;
         [SerializeField] private float playerExclusionRange;
         [SerializeField] private float otherSpawnsExclusionRange;
+        [SerializeField] private GameObject particlePoof;
         private List<Vector3> allSpawnLocations = new List<Vector3>();
         private List<Anthill> activeAnthills = new List<Anthill>();
 
@@ -117,6 +118,10 @@ namespace GMTK2024
 
         private void TriggerDawn()
         {
+            foreach (AIAgent agent in AIManager.Instance.activeAgents)
+            {
+                Instantiate(particlePoof, agent.transform.position, Quaternion.identity);
+            }
             AIManager.Instance.DestroyAllAgents();
         }
 

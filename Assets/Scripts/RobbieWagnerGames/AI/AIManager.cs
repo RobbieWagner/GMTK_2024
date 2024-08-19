@@ -13,7 +13,7 @@ namespace RobbieWagnerGames.AI
     {
         public static AIManager Instance { get; private set; }
 
-        private List<AIAgent> activeAgents = new List<AIAgent>();
+        public List<AIAgent> activeAgents = new List<AIAgent>();
 
         private void Awake()
         {
