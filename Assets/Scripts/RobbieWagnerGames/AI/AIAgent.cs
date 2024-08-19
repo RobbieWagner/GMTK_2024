@@ -209,7 +209,7 @@ namespace RobbieWagnerGames.AI
             {
                 SetDestination(chasingTarget.transform.position);
 
-                if (agent.destination == null || chasingTarget == null || Vector3.Distance(transform.position, chasingTarget.transform.position) < 3.0f) //AIManager.GetPathLength(agent.path) < .05f)
+                if (agent.destination == null || chasingTarget == null || Vector3.Distance(transform.position, chasingTarget.transform.position) < 3.5f) //AIManager.GetPathLength(agent.path) < .05f)
                 {
                     OnReachTarget(chasingTarget);
                 }

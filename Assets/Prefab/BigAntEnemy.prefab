@@ -747,8 +747,8 @@ MonoBehaviour:
   - {fileID: 4186386079483815343}
   - {fileID: 4654745084917965054}
   - {fileID: 7587370459897005047}
-  minStalkDistance: 75
-  maxStalkDistance: 125
+  minStalkDistance: 150
+  maxStalkDistance: 200
   sightCheckCooldown: 0.5
   isInPlayerRange: 0
 --- !u!54 &-6806583633223388201
