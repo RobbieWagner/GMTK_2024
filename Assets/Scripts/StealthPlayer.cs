@@ -1,3 +1,4 @@
+using GMTK2024;
 using RobbieWagnerGames.AI;
 using RobbieWagnerGames.FirstPerson;
 using System;
@@ -66,11 +67,22 @@ public class StealthPlayer : MonoBehaviour
         aiTarget = GetComponent<AITarget>();
 
         SimpleFirstPersonPlayerMovement.Instance.ToggleRun += ToggleReveal;
+        GameManager.Instance.OnChangeCurrentAnthill += CheckAnthill;
     }
 
     private void Update()
     {
         UpdateRadius();
+        if(IsRevealed)
+            UpdateRevealedState();
+    }
+
+    private void UpdateRevealedState()
+    {
+        if ((GameManager.Instance.CurrentStompingAnthill != null && SimpleFirstPersonPlayerMovement.Instance.IsMoving) || SimpleFirstPersonPlayerMovement.Instance.IsRunning || (aiTarget.chasers != null && aiTarget.chasers.Any()))
+            return;
+
+        IsRevealed = false;
     }
 
     public void UpdateRadius()
@@ -110,5 +122,11 @@ public class StealthPlayer : MonoBehaviour
     {
         IsRevealed = on;
     }
-
+    private void CheckAnthill(Anthill anthill)
+    {
+        if (anthill == null && !SimpleFirstPersonPlayerMovement.Instance.IsRunning)
+            IsRevealed = false;
+        else if (anthill != null && SimpleFirstPersonPlayerMovement.Instance.IsMoving)
+            IsRevealed = true;
+    }
 }

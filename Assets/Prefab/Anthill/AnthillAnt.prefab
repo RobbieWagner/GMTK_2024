@@ -153,6 +153,10 @@ MonoBehaviour:
   idleWaitTime: 3
   movementRange: 3
   animator: {fileID: 238987265749937149}
+  footstepSounds: {fileID: 0}
+  raycastLayers:
+    serializedVersion: 2
+    m_Bits: 0
   anthill: {fileID: 0}
 --- !u!1001 &2417124742787929047
 PrefabInstance:

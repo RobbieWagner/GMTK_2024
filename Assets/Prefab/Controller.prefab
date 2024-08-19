@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e8dc05a1bfb624a91cacd77d3bd592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxStamina: 10
+  maxStamina: 13
   defaultSpeed: 5
   runSpeed: 10
   characterController: {fileID: 6905568635139074802}

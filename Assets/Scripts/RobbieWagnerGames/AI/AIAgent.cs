@@ -250,7 +250,8 @@ namespace RobbieWagnerGames.AI
             if (agent != null)
             {
                 agent.isStopped = false;
-                return agent.SetDestination(destination);
+                bool success = agent.SetDestination(destination);
+                return success;
             }
             return false;
         }

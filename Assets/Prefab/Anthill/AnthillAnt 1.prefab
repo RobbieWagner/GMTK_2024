@@ -153,6 +153,10 @@ MonoBehaviour:
   idleWaitTime: 3
   movementRange: 3
   animator: {fileID: 1108749312247946088}
+  footstepSounds: {fileID: 0}
+  raycastLayers:
+    serializedVersion: 2
+    m_Bits: 0
   anthill: {fileID: 0}
 --- !u!1001 &2417124742787929047
 PrefabInstance:
@@ -254,7 +258,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 26ec18195cdc7b149b7790002f38ca22,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26ec18195cdc7b149b7790002f38ca22,
         type: 3}

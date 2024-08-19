@@ -13,6 +13,7 @@ namespace GMTK2024
 
         Anthills_Destroyed,
         Flashlight_Clicks,
+        Days_Survived
     }
 
     public class GameStatTracker : MonoBehaviour
@@ -38,12 +39,9 @@ namespace GMTK2024
         {
             Dictionary<string, int> output = new Dictionary<string, int>();
 
-            output.Add(GameStatistic.Highscore.ToString(), PlayerPrefs.GetInt(GameStatistic.Highscore.ToString(), 0));
-            output.Add(GameStatistic.Total_Ants_Killed.ToString(), PlayerPrefs.GetInt(GameStatistic.Total_Ants_Killed.ToString(), 0));
-            output.Add(GameStatistic.Deaths.ToString(), PlayerPrefs.GetInt(GameStatistic.Deaths.ToString(), 0));
-            output.Add(GameStatistic.Anthills_Destroyed.ToString(), PlayerPrefs.GetInt(GameStatistic.Anthills_Destroyed.ToString(), 0));
-            output.Add(GameStatistic.Flashlight_Clicks.ToString(), PlayerPrefs.GetInt(GameStatistic.Flashlight_Clicks.ToString(), 0));
-
+            foreach (GameStatistic stat in Enum.GetValues(typeof(GameStatistic)))
+                output.Add(stat.ToString(), PlayerPrefs.GetInt(stat.ToString(), 0));
+            
             return output;
         }
 

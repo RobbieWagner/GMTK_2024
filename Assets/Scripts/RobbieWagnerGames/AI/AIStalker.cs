@@ -22,6 +22,7 @@ namespace RobbieWagnerGames.AI
         [SerializeField] private float sightCheckCooldown = 0.5f;
         
         private float timer;
+        private float moveTimer;
 
         [HideInInspector] public bool isInPlayerRange;
 
@@ -142,6 +143,19 @@ namespace RobbieWagnerGames.AI
             return false;
         }
 
+        protected override void UpdateMovingState()
+        {
+            if (agent != null)
+            {
+                moveTimer += Time.deltaTime;
+                if (((agent.destination == null || AIManager.GetPathLength(agent.path) < 2.5f) && moveTimer >= 5f) || moveTimer > 60)
+                {
+                    moveTimer = 0;
+                    GoIdle();
+                }
+            }
+        }
+
         protected override void UpdateChaseState()
         {
             base.UpdateChaseState();
@@ -170,7 +184,7 @@ namespace RobbieWagnerGames.AI
         {
             int tries = 0;
             bool success = false;
-            while (tries < tryLimit)
+            while (tries < tryLimit && !success)
             {
                 tries++;
                 if (tries % triesBeforeYield == 0)
@@ -183,15 +197,23 @@ namespace RobbieWagnerGames.AI
                 {
                     if(Vector3.Distance(SimpleFirstPersonPlayerMovement.Instance.transform.position, hit.position) >= minRange)
                     {
-                        MoveAgent(hit.position);
-                        success = true;
-                        yield break;
+                        success = MoveAgent(hit.position);
                     }
                 }
             }
 
             if (!success)
                 Debug.LogWarning($"Could not find a path after trying {tryLimit} times!");
+        }
+
+        public override bool MoveAgent(Vector3 destination)
+        {
+            if (agent != null)
+            {
+                CurrentState = AIState.MOVING;
+                return SetDestination(destination);
+            }
+            return false;
         }
     }
 }

@@ -303,7 +303,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: bd8e7bcbc544630499fe4a5e3e0da883, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -312,7 +312,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 25
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -465,17 +465,17 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 191
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.1, z: 4.027092}
-  m_Center: {x: 0, y: 0, z: -0.3944397}
+  m_Size: {x: 1, y: 0.1, z: 3.5538235}
+  m_Center: {x: 0, y: 0, z: -0.04143864}
 --- !u!1 &3939762128857631421
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +709,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 2.25
-  m_Speed: 7
+  m_Speed: 6.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -719,7 +719,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 3
   m_ObstacleAvoidanceType: 4
 --- !u!114 &3237137915801224218
 MonoBehaviour:
@@ -748,7 +748,7 @@ MonoBehaviour:
   - {fileID: 4654745084917965054}
   - {fileID: 7587370459897005047}
   minStalkDistance: 75
-  maxStalkDistance: 200
+  maxStalkDistance: 125
   sightCheckCooldown: 0.5
   isInPlayerRange: 0
 --- !u!54 &-6806583633223388201

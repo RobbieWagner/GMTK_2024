@@ -145,6 +145,7 @@ namespace GMTK2024
             currentAntPositions.Clear();
             AIManager.Instance.DestroyAllAgents();
             Day++;
+            GameStatTracker.Instance.SetStat(GameStatistic.Days_Survived, 1, true);
         }
 
         private void TriggerDay()
