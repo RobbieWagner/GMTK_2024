@@ -88,7 +88,12 @@ public class Anthill : MonoBehaviour
         GameStatTracker.Instance.SetStat(GameStatistic.Anthills_Destroyed, 1, true);
 
         foreach (AIAgent agent in spawnedAgents)
-            Destroy(agent.gameObject);
+        {
+            if (agent != null)
+            {
+                Destroy(agent.gameObject);
+            }
+        }
 
         animator.SetTrigger("destroy");
 

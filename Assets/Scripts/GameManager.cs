@@ -34,6 +34,8 @@ namespace GMTK2024
         private List<Vector3> allSpawnLocations = new List<Vector3>();
         private List<Anthill> activeAnthills = new List<Anthill>();
 
+        private List<AIAgent> currentAntPositions = new List<AIAgent>();
+
         private Anthill currentStompingAnthill = null;
         [HideInInspector] public Anthill CurrentStompingAnthill
         {
@@ -118,10 +120,11 @@ namespace GMTK2024
 
         private void TriggerDawn()
         {
-            foreach (AIAgent agent in AIManager.Instance.activeAgents)
+            foreach (AIAgent agent in currentAntPositions)
             {
                 Instantiate(particlePoof, agent.transform.position, Quaternion.identity);
             }
+            currentAntPositions.Clear();
             AIManager.Instance.DestroyAllAgents();
         }
 
@@ -190,7 +193,8 @@ namespace GMTK2024
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(spawnPos, out hit, 1.0f, NavMesh.AllAreas))
                 {
-                    AIManager.Instance.AddAgentToScene(stalkerPrefab, hit.position, player);
+                    AIAgent t = AIManager.Instance.AddAgentToScene(stalkerPrefab, hit.position, player);
+                    currentAntPositions.Add(t);
                 }
             }
             AIManager.Instance.InitializeAI();
