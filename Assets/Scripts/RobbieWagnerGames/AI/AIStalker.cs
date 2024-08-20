@@ -162,9 +162,9 @@ namespace RobbieWagnerGames.AI
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position + transform.up,
-                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 60, raycastLayers))
+                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 50, raycastLayers))
             {
-                if (hit.transform.gameObject != chasingTarget.gameObject)
+                if (hit.transform == null || hit.transform.gameObject != chasingTarget.gameObject)
                 {
                     currentState = AIState.SEARCHING;
                 }
