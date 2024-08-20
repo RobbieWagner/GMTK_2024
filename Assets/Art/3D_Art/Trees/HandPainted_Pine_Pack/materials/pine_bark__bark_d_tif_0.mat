@@ -38,6 +38,7 @@ Material:
     - _Glossiness: 0.39999998
     - _GlossyReflections: 1
     - _Parallax: 0.02
+    - _Smoothness: 0
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &7009903014659141223
