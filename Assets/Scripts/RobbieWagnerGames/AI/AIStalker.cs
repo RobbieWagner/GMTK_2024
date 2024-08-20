@@ -129,7 +129,7 @@ namespace RobbieWagnerGames.AI
                 {
                     RaycastHit hit;
                     Debug.DrawRay(transform.position + transform.up, (other.transform.position - (transform.position + transform.up)).normalized * 60, Color.blue, 0.5f);
-                    if (Physics.Raycast(transform.position + transform.up, other.transform.position - (transform.position + transform.up), out hit, 60, raycastLayers))
+                    if (Physics.Raycast(transform.position + Vector3.up, other.transform.position - (transform.position + Vector3.up), out hit, 60, raycastLayers))
                     {
                         if (hit.transform.gameObject.CompareTag("Player") && CurrentState != AIState.CHASING)
                         {
