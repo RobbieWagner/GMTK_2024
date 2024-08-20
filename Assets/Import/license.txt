@@ -1,0 +1,11 @@
+Model Information:
+* title:	The Tunnel
+* source:	https://sketchfab.com/3d-models/the-tunnel-6fdc789cff774318b96bbeca8d254cea
+* author:	Junaid_shakoor (https://sketchfab.com/Junaid_shakoor)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "The Tunnel" (https://sketchfab.com/3d-models/the-tunnel-6fdc789cff774318b96bbeca8d254cea) by Junaid_shakoor (https://sketchfab.com/Junaid_shakoor) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
