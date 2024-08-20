@@ -147,10 +147,7 @@ public class GameUI : MonoBehaviour
             if (DayNightCycle.Instance.Daytime != Daytime.NIGHT)
                 visibilityIndicator.color = offColor;
             else if (playerTarget.chasers != null && playerTarget.chasers.Any())
-            {
-                Debug.Log("hi");
                 visibilityIndicator.color = chaseColor;
-            }
             else if (player.IsRevealed)
                 visibilityIndicator.color = revealedColor;
             else if (!player.IsRevealed && !player.IsHiding)

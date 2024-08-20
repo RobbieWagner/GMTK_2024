@@ -180,7 +180,7 @@ namespace RobbieWagnerGames.AI
             {
                 if (hit.transform == null || hit.transform.gameObject != chasingTarget.gameObject)
                 {
-                    currentState = AIState.SEARCHING;
+                    CurrentState = AIState.SEARCHING;
                 }
             }
             else
