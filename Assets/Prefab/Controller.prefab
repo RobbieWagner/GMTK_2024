@@ -417,7 +417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStamina: 13
   defaultSpeed: 5
-  runSpeed: 10
+  runSpeed: 11
   characterController: {fileID: 6905568635139074802}
   groundMask:
     serializedVersion: 2
@@ -469,9 +469,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radiusOfDetection: {fileID: 5497685171275816008}
-  obscuredRadius: 10
-  defaultRadius: 25
-  revealedRadius: 40
+  obscuredRadius: 7
+  defaultRadius: 20
+  revealedRadius: 30
 --- !u!1001 &3965368966113996335
 PrefabInstance:
   m_ObjectHideFlags: 0

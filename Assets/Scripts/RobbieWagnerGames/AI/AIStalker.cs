@@ -173,7 +173,7 @@ namespace RobbieWagnerGames.AI
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position + transform.up,
-                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 40.1f, raycastLayers))
+                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 30.1f, raycastLayers))
             {
                 if (hit.transform == null || hit.transform.gameObject != chasingTarget.gameObject)
                 {
