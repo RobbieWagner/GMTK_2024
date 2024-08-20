@@ -53,7 +53,7 @@ Shader "Unlit/Skybox"
             SAMPLER(sampler_ViewZenithGradient);
             TEXTURE2D(_SunViewGradient);
             SAMPLER(sampler_SunViewGradient);
-            TEXTURE2D(_StarCubeMap);
+            TEXTURECUBE(_StarCubeMap);
             SAMPLER(sampler_StarCubeMap);
 
             float3 _SunDir, _MoonDir;
