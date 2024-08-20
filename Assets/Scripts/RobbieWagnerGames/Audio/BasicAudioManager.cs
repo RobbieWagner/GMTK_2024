@@ -6,6 +6,7 @@ using Ink.Parsed;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.ProBuilder.MeshOperations;
+using Unity.VisualScripting;
 
 namespace RobbieWagnerGames.Common
 {
@@ -59,11 +60,11 @@ namespace RobbieWagnerGames.Common
             return audioSources.ContainsKey(name) ? audioSources[name] : null;
         }
 
-        public void PlayAudioSource(AudioSourceName name, bool checkPlayStatus = false)
+        public void PlayAudioSource(AudioSourceName name, bool checkPlayStatus = false, float volume = 1)
         {
             if(audioSources.ContainsKey(name) && audioSources[name] != null)
             {
-                audioSources[name].volume = 1;
+                audioSources[name].volume = volume;
                 if(!checkPlayStatus || !audioSources[name].isPlaying)
                     audioSources[name].Play();
             }
@@ -77,27 +78,21 @@ namespace RobbieWagnerGames.Common
             }
         }
 
-        public IEnumerator FadeSoundCo(AudioSourceName name, float fadeTime = 2f, bool fadeIn = false)
+        public IEnumerator FadeSoundCo(AudioSourceName name, float fadeTime = 2f, bool fadeIn = false, float vol = 1)
         {
             if (audioSources.ContainsKey(name) && audioSources[name] != null)
             {
-                yield return StartCoroutine(FadeSound(audioSources[name], fadeTime, fadeIn));
-                AudioSource audioSource = audioSources[name];
-                if (fadeIn && !audioSource.isPlaying)
-                {
-                    yield return audioSource.DOFade(1, fadeTime).WaitForCompletion();
-                    audioSource.Play();
-                }
+                yield return StartCoroutine(FadeSound(audioSources[name], fadeTime, fadeIn, vol));
             }
         }
 
-        public static IEnumerator FadeSound(AudioSource source, float fadeTime = 2f, bool fadeIn = false)
+        public static IEnumerator FadeSound(AudioSource source, float fadeTime = 2f, bool fadeIn = false, float volume = 1)
         {
             if (fadeIn && !source.isPlaying)
             {
                 source.volume = 0.0f;
                 source.Play();
-                yield return source.DOFade(1, fadeTime).WaitForCompletion();
+                yield return source.DOFade(volume, fadeTime).WaitForCompletion();
             }
 
             else if(!fadeIn && source.isPlaying)
@@ -144,10 +139,10 @@ namespace RobbieWagnerGames.Common
             return null;
         }
 
-        public IEnumerator DelayAudioPlay(AudioSourceName audio, float delay)
+        public IEnumerator DelayAudioPlay(AudioSourceName audio, float delay, float vol = 1f)
         {
             yield return new WaitForSeconds(delay);
-            PlayAudioSource(audio);
+            PlayAudioSource(audio, false, vol);
         }
     }
 }

@@ -312,7 +312,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 70
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -740,7 +740,7 @@ MonoBehaviour:
   footstepSounds: {fileID: 7543308590878434894}
   raycastLayers:
     serializedVersion: 2
-    m_Bits: 223
+    m_Bits: 87
   maxChaseDistance: 40
   alertedSounds:
   - {fileID: 7712639376849632792}
@@ -751,9 +751,9 @@ MonoBehaviour:
   maxStalkDistance: 150
   sightCheckCooldown: 0.5
   isInPlayerRange: 0
-  runSpeed: 6.9
-  walkSpeed: 4.75
-  searchSpeed: 5.05
+  runSpeed: 7.125
+  walkSpeed: 5.05
+  searchSpeed: 5.25
 --- !u!54 &-6806583633223388201
 Rigidbody:
   m_ObjectHideFlags: 0

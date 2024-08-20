@@ -14,6 +14,7 @@ public class DayCycleMusic : MonoBehaviour
         DayNightCycle.Instance.OnDayCycleChange += TransitionMusic;
 
         BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Ambience_Day);
+        BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Music_Day, false, .25f);
     }
 
     private void TransitionMusic(Daytime daytime)
@@ -32,11 +33,11 @@ public class DayCycleMusic : MonoBehaviour
             StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Music_Night));
             StartCoroutine(BasicAudioManager.Instance.FadeSoundCo(AudioSourceName.Ambience_Day, 2, true));
             BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Stinger_Dawn);
-            StartCoroutine(BasicAudioManager.Instance.DelayAudioPlay(AudioSourceName.Music_Day, dawnStingerLength));
+            StartCoroutine(BasicAudioManager.Instance.DelayAudioPlay(AudioSourceName.Music_Day, dawnStingerLength, .25f));
         }    
         else if(daytime == Daytime.DAY)
         {
-            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Music_Day, true);
+            BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Music_Day, true, .25f);
             BasicAudioManager.Instance.PlayAudioSource(AudioSourceName.Ambience_Day, true);
         }
         else if (daytime == Daytime.NIGHT)

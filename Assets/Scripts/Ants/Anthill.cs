@@ -30,6 +30,7 @@ public class Anthill : MonoBehaviour
     [SerializeField] private List<Vector3> antSpawnLocations;
 
     private List<AudioSourceName> splatSounds;
+    [SerializeField] private AudioSource dissolveSound;
 
     [SerializeField] private Animator animator;
     private Coroutine destroyCo;
@@ -97,6 +98,7 @@ public class Anthill : MonoBehaviour
 
         animator.SetTrigger("destroy");
 
+        dissolveSound.Play();
         yield return new WaitForSeconds(.7f);
         Destroy(gameObject);
     }

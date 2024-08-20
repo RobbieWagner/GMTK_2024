@@ -136,7 +136,6 @@ namespace RobbieWagnerGames.AI
                 if (agent.CalculatePath(target.transform.position, path) && path.status == NavMeshPathStatus.PathComplete)
                 {
                     float pathLength = AIManager.GetPathLength(path);
-
                     if (pathLength < closestDistance)
                     {
                         closestDistance = pathLength;

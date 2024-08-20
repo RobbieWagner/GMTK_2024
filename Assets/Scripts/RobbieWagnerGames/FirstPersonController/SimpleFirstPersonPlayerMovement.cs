@@ -228,14 +228,14 @@ namespace RobbieWagnerGames.FirstPerson
                 if (inputVector.z <= 0)
                     IsRunning = false;
                 if(CurStamina < maxStamina)
-                    CurStamina += Time.deltaTime / 2;
+                    CurStamina += Time.deltaTime / 1.75f;
             }
         }
 
         private void UpdateGroundCheck()
         { 
             RaycastHit hit;
-            isGrounded = Physics.Raycast(transform.position + new Vector3(0, .01f, 0), Vector3.down, out hit, 1.5f, groundMask);
+            isGrounded = Physics.Raycast(transform.position + new Vector3(0, .01f, 0), Vector3.down, out hit, 1.1f, groundMask);
 
             if (hit.collider != null)
             {
