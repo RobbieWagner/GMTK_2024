@@ -97,11 +97,6 @@ namespace RobbieWagnerGames.AI
                 agent.isStopped = true;
                 CurrentState = AIState.IDLE;
             }
-
-            if (chasingTarget != null)
-            {
-                chasingTarget.chasers.Remove(this);
-            }
         }
 
         public virtual bool MoveAgent(Vector3 destination)

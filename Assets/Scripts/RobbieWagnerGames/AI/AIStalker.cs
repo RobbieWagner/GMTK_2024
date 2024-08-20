@@ -76,6 +76,9 @@ namespace RobbieWagnerGames.AI
                 agent.speed = searchSpeed;
             else
                 agent.speed = walkSpeed;
+
+            if (chasingTarget != null && state != AIState.CHASING)
+                chasingTarget.chasers.Remove(this);
         }
 
         private IEnumerator CooldownAlertTimer(float length)
@@ -103,7 +106,7 @@ namespace RobbieWagnerGames.AI
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position + transform.up,
-                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 200f, raycastLayers))
+                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 25.1f, raycastLayers))
             {
                 if (hit.collider.CompareTag("Player") || isInPlayerRange)
                 {

@@ -45,6 +45,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Color hiddenColor;
     [SerializeField] private Color visibleColor;
     [SerializeField] private Color revealedColor;
+    [SerializeField] private Color chaseColor;
 
     [SerializeField] public TextMeshProUGUI highscoreText;
 
@@ -146,12 +147,15 @@ public class GameUI : MonoBehaviour
             if (DayNightCycle.Instance.Daytime != Daytime.NIGHT)
                 visibilityIndicator.color = offColor;
             else if (playerTarget.chasers != null && playerTarget.chasers.Any())
+            {
+                Debug.Log("hi");
+                visibilityIndicator.color = chaseColor;
+            }
+            else if (player.IsRevealed)
                 visibilityIndicator.color = revealedColor;
-            else if(player.IsRevealed)
-                visibilityIndicator.color = revealedColor;
-            else if(!player.IsRevealed && !player.IsHiding)
+            else if (!player.IsRevealed && !player.IsHiding)
                 visibilityIndicator.color = visibleColor;
-            else if(player.IsHiding)
+            else if (player.IsHiding)
                 visibilityIndicator.color = hiddenColor;
         }
 
