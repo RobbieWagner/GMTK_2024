@@ -751,6 +751,9 @@ MonoBehaviour:
   maxStalkDistance: 150
   sightCheckCooldown: 0.5
   isInPlayerRange: 0
+  runSpeed: 6.7
+  walkSpeed: 4.75
+  searchSpeed: 5.05
 --- !u!54 &-6806583633223388201
 Rigidbody:
   m_ObjectHideFlags: 0

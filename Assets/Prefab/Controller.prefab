@@ -470,8 +470,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radiusOfDetection: {fileID: 5497685171275816008}
   obscuredRadius: 10
-  defaultRadius: 30
-  revealedRadius: 50
+  defaultRadius: 25
+  revealedRadius: 40
 --- !u!1001 &3965368966113996335
 PrefabInstance:
   m_ObjectHideFlags: 0

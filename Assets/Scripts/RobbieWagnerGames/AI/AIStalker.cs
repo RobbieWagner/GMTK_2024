@@ -26,6 +26,10 @@ namespace RobbieWagnerGames.AI
 
         [HideInInspector] public bool isInPlayerRange;
 
+        [SerializeField] private float runSpeed = 6.7f;
+        [SerializeField] private float walkSpeed = 6.7f;
+        [SerializeField] private float searchSpeed = 6.7f;
+
         protected override void Awake()
         {
             base.Awake();
@@ -65,6 +69,15 @@ namespace RobbieWagnerGames.AI
                     alertSoundCooldown = null;
                 }
             }
+
+            if (state == AIState.CHASING)
+                agent.speed = runSpeed;
+            else if (state == AIState.SEARCHING)
+                agent.speed = searchSpeed;
+            else
+                agent.speed = walkSpeed;
+
+            Debug.Log(state);
         }
 
         private IEnumerator CooldownAlertTimer(float length)
@@ -162,7 +175,7 @@ namespace RobbieWagnerGames.AI
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position + transform.up,
-                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 50, raycastLayers))
+                    chasingTarget.transform.position - (transform.position + transform.up), out hit, 40.1f, raycastLayers))
             {
                 if (hit.transform == null || hit.transform.gameObject != chasingTarget.gameObject)
                 {
