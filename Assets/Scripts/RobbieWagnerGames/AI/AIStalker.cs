@@ -76,8 +76,6 @@ namespace RobbieWagnerGames.AI
                 agent.speed = searchSpeed;
             else
                 agent.speed = walkSpeed;
-
-            Debug.Log(state);
         }
 
         private IEnumerator CooldownAlertTimer(float length)
